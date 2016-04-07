@@ -25,7 +25,7 @@ vector <string> inpute_file(string name)
 	return text;
 }
 
-int file_read (string name)
+int Is_file (string name)
 {
 	ifstream file_text;
 	file_text.open(name);

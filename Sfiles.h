@@ -18,7 +18,7 @@ vector <string> inpute_file(string name);
 * \return 1 или 0
 
 */
-int file_read(string name);
+int Is_file(string name);
 /*! Функция для записи в файл
 
 
