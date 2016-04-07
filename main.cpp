@@ -3,6 +3,8 @@
 #include <map>
 using namespace std;
 
+#include "Sfiles.h"
+
 map <int,int> swap (map <int,int> tabl, int count);
 map <int,int> generate_tabl (int count);
 vector <int> generate_key (int n, int m, int j);
