@@ -9,6 +9,7 @@ map <int,int> swap (map <int,int> tabl, int count);
 map <int,int> generate_tabl (int count);
 vector <int> generate_key (int n, int m, int j);
 vector < vector <int> > sub (vector<int> key, int n, int m, int j);
+int Counter_Bits(vector <string> text); // Функция подсчета битов в тексте
 
 int main()
 {
@@ -64,4 +65,22 @@ vector <vector<int>> sub (vector<int> key,int n,int m, int j)
 		}
 	}
 	return sub_key;
+}
+
+int Counter_Bits(vector <string> text)
+{
+	int count = 0;
+	for (int i = 0; i < (int) text.size(); i++)
+	{
+		for (int j = 0; j < (int) text[i].size(); j++)
+		{
+			unsigned int temp = text[i][j];
+			while (temp != 0)
+			{
+				temp = temp >> 1;
+				count++;
+			}
+		}
+	}
+	return count;
 }
