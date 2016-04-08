@@ -9,7 +9,8 @@ map <int,int> swap (map <int,int> tabl, int count);
 map <int,int> generate_tabl (int count);
 vector <int> generate_key (int n, int m, int j);
 vector < vector <int> > sub (vector<int> key, int n, int m, int j);
-int Counter_Bits(vector <string> &text); // Функция подсчета битов в тексте
+int Counter_Bits(vector <string> &text); // Пподсчет битов в тексте
+string Random_Bytes(int m); // Генерация случайной последовательности 0 и 1 длины m
 
 int main()
 {
@@ -83,4 +84,15 @@ int Counter_Bits(vector <string> &text)
 		}
 	}
 	return count;
+}
+
+string Random_Bytes(int m)
+{
+	string str;
+	for (int i = 0; i < m; i++)
+	{
+		char temp = rand() % 2 + '0';
+		str = str + temp;
+	}
+	return str;
 }
