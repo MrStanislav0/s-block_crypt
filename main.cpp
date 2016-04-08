@@ -1,25 +1,25 @@
-п»ї#include <iostream>
+#include <iostream>
 #include <vector>
 #include <map>
 #include <ctime>
 #include <string>
 #include <algorithm>
 
-// РљРћРњРњР•РќРўРРўР¬ Р’РЎРЃ!
+// КОММЕНТИТЬ ВСЁ!
 
-#include "Sfiles.h"// СЌС‚Рѕ РґР»СЏ РІС‹РІРѕРґР°-РІРІРѕРґР° РёР· С„Р°Р№Р»Р°
+#include "Sfiles.h"// это для вывода-ввода из файла
 
 using namespace std;
 
-map <int, int> swap(map <int, int> tabl, int count);// РїРµСЂРµРјРµС€РёРІР°РµС‚ С‚Р°Р±Р»РёС†Сѓ Р·Р°РјРµРЅС‹.
-map <int, int> generate_tabl(int count);// СЃРѕР·РґР°РµС‚ С‚Р°Р±Р»РёС†Сѓ Р·Р°РјРµРЅС‹ СЂР°Р·РјРµСЂ n*m - 2. РСЃРїРѕР»СЊР·СѓРµРј РІРѕ РІСЂРµРјСЏ xor СЃ РєР»СЋС‡РѕРј. РўР°Р±Р»РёС†Р° РµС‰Рµ РЅРµ РїРµСЂРµРјРµС€Р°РЅР°, РјРµС€Р°РµРј РІ swap
-vector <int> generate_key(int n, int m, int j);// СЃРѕР·РґР°РµС‚ РєР»СЋС‡ СЂР°Р·РјРµСЂР° n*m*j. РљР»СЋС‡ РµС‰Рµ РЅРµ СЂР°Р·Р±РёС‚
-vector < vector <int> > sub(vector<int> key, int n, int m, int j);// СЂР°Р·Р±РёРІР°РµРј РєР»СЋС‡ РЅР° k(i)
-int Counter_Bits(vector <string> &text); // РџРѕРґСЃС‡РµС‚ Р±РёС‚РѕРІ РІ С‚РµРєСЃС‚Рµ
-map <string, string> generate_sbox(int m); // РЎРѕР·РґР°РµС‚ С‚Р°Р±Р»РёС†Сѓ СЂР°Р·РјРµСЂР° (2^m - 2). Р’ РЅРµР№ РєР°Рє РїРѕ С‚Р°Р±Р»РёС†Рµ РёСЃС‚РёРЅРЅРѕСЃС‚СЊ СѓРїРѕСЂСЏРґРѕС‡РµРЅС‹ 000, 001... (СЃРјРѕС‚СЂРё РґР°Р»СЊС€Рµ Random_sbox)
-string Random_Bytes(int m); // Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕР№ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё 0 Рё 1 РґР»РёРЅС‹ m
-vector <string> Random_sbox(int m); // Р“РµРЅРµСЂР°С†РёСЏ s-blokov, РїСЂРёС‡РµРј, РјС‹ РёС… РїРµСЂРµРјРµС€РёРІР°РµРј, РїРѕСЃР»Рµ Р·Р°РїРёС€РµРј РІ map Рё РїРѕР»С‡РёРј sbox
-map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // Р“РµРЅРµСЂР°С†РёСЏ С‚Р°Р±Р»РёС†С‹ РїРѕРґСЃС‚Р°РЅРѕРІРєРё sbox
+map <int, int> swap(map <int, int> tabl, int count);// перемешивает таблицу замены.
+map <int, int> generate_tabl(int count);// создает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
+vector <int> generate_key(int n, int m, int j);// создает ключ размера n*m*j. Ключ еще не разбит
+vector < vector <int> > sub(vector<int> key, int n, int m, int j);// разбиваем ключ на k(i)
+int Counter_Bits(vector <string> &text); // Подсчет битов в тексте
+map <string, string> generate_sbox(int m); // Создает таблицу размера (2^m - 2). В ней как по таблице истинность упорядочены 000, 001... (смотри дальше Random_sbox)
+string Random_Bytes(int m); // Генерация случайной последовательности 0 и 1 длины m
+vector <string> Random_sbox(int m); // Генерация s-blokov, причем, мы их перемешиваем, после запишем в map и полчим sbox
+map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // Генерация таблицы подстановки sbox
 
 int main()
 {
@@ -39,7 +39,7 @@ int main()
 map <int, int> swap(map <int, int> tabl, int count)
 {
 	for (int i = 0; i<count; i++)
-		swap(tabl[i], tabl[rand() % count]);// РіРµРЅРµСЂРёСЂСѓРµРј С‚Р°Р±Р»РёС†Сѓ Р·Р°РјРµРЅС‹
+		swap(tabl[i], tabl[rand() % count]);// генерируем таблицу замены
 	return tabl;
 }
 
@@ -55,10 +55,10 @@ vector <int> generate_key(int n, int m, int j)
 {
 	vector <int> key;
 	int r;
-	for (int i = 0; i<n*m*j; i++) //Р“РµРЅРµСЂРёСЂСѓРµРј РєР»СЋС‡
+	for (int i = 0; i<n*m*j; i++) //Генерируем ключ
 	{
-		r = rand() % 2; //СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°Р»Рё С‡РёСЃР»Рѕ, РІР·СЏР»Рё РѕСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ РЅР° 2 (С…Р· РІРµСЂРЅРѕ РёР»Рё РЅРµС‚)
-		key.push_back(r);// Р·Р°РїРёС…РёРІР°РµРј РІ РјР°СЃСЃРёРІ
+		r = rand() % 2; //собственно сгенерировали число, взяли остаток от деления на 2 (хз верно или нет)
+		key.push_back(r);// запихиваем в массив
 	}
 	return key;
 }
@@ -68,11 +68,11 @@ vector <vector<int>> sub(vector<int> key, int n, int m, int j)
 	vector <vector <int>> sub_key;
 	int counter = 0;
 
-	sub_key.resize(j); // Р±РµР· СЌС‚РѕРіРѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚ (??!??!!!)
-	for (int i = 0; i<n; i++)// Р’ С†РёРєР»Рµ РѕС‚ 1 РґРѕ n (n С€С‚СѓРє)
+	sub_key.resize(j); // без этого не работает (??!??!!!)
+	for (int i = 0; i<n; i++)// В цикле от 1 до n (n штук)
 	{
 		sub_key[i].resize(n*m);
-		for (int k = 0; k<n*m; k++) // Р’ С†РёРєР»Рµ РѕС‚ 1 РґРѕ m (СЂР°Р·РјРµСЂ m)
+		for (int k = 0; k<n*m; k++) // В цикле от 1 до m (размер m)
 		{
 			sub_key[i].push_back(key[counter]);
 			counter++;
