@@ -18,6 +18,8 @@ string Random_Bytes(int m); //Генерация случайной послед
 map <string, string> generate_sbox(int m); //Создает таблицу размера (2^m - 2). В ней как по таблице истинность упорядочены 000, 001... (смотри дальше Random_sbox)
 vector <string> Random_sbox(int m); //Генерация s-блока, причем, мы их перемешиваем, после запишем в map и полчим sbox (смотри generate_tabl_mix )
 map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // Генерация таблицы подстановки sbox
+string generate_text (int, int); //Создано для тестов. Генерирует строку n*m из 0 и 1. По сути - открытый текст
+vector <string> sub_str_blok (string, int);//Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 
 int main()
 {
@@ -161,3 +163,35 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 	return sblock;
 }
 
+string generate_text (int n, int m)
+{
+	string str;
+	char alpha;
+	int r;
+	for (int i=0;i<n*m;i++)
+	{
+		r=rand()%2;
+		alpha=r+'0';
+		str=str+alpha;
+	}
+	return str;
+}
+
+vector <string> sub_str_blok (string str, int m)
+{
+	vector <string> blok;
+	char alpha;
+
+	for (int i=0;i<str.size();)
+	{
+		string sub;
+		for (int j=0;j<m;j++)
+		{
+			alpha=str[i];
+			sub=sub+alpha;
+			i++;
+		}
+		blok.push_back(sub);
+	}
+	return blok;
+}
