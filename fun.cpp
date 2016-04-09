@@ -10,10 +10,17 @@ using namespace std;
 
 #include "fun.h"
 
-map <int, int> generate_tabl(int count)
+map <int, int> swap(map <int, int> tabl, int n,int m)
+{
+	for (int i = 0; i<n*m; i++)
+		swap(tabl[i], tabl[rand() % (n*m)]);// генерируем таблицу замены
+	return tabl;
+}
+
+map <int, int> generate_tabl(int n, int m)
 {
 	map <int, int> a;
-	for (int i = 0; i<count; i++)
+	for (int i = 0; i<n*m; i++)
 		a[i] = i;
 	return a;
 }
