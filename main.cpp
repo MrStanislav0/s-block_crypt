@@ -98,7 +98,7 @@ int Counter_Bits(vector <string> &text)
 	return count;
 }
 
-string Random_Bytes(int m)
+string Random_Bits(int m)
 {
 	string str;
 	for (int i = 0; i < m; i++)
