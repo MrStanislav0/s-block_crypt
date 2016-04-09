@@ -10,6 +10,20 @@ using namespace std;
 
 #include "fun.h"
 
+string generate_text (int n, int m)
+{
+	string str;
+	char alpha;
+	int r;
+	for (int i=0;i<n*m;i++)
+	{
+		r=rand()%2;
+		alpha=r+'0';
+		str=str+alpha;
+	}
+	return str;
+}
+
 map <int, int> swap(map <int, int> tabl, int n,int m)
 {
 	for (int i = 0; i<n*m; i++)
