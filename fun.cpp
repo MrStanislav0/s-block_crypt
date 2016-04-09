@@ -10,6 +10,44 @@ using namespace std;
 
 #include "fun.h"
 
+vector <vector <string>> sub_str_blok (string str, int n, int m)
+{
+	//!!
+	//в функции не рассматриваю, когда не влезает целиком sblok. То есть n=3,m=3, длина текста 17
+	vector <vector <string>> blok;
+	char alpha;
+
+	for (int i=0;i<str.size();)
+	{
+		vector <string> oops;
+		for (int j=0;j<n;j++)//отмеряем n штук блоков
+		{
+			string sub;
+			for (int k=0;k<m;k++)//отмеряем m штук символов
+			{
+				alpha=str[i];
+				sub=sub+alpha;
+				i++;
+			}
+			oops.push_back(sub);
+		}
+		blok.push_back(oops);
+	}
+	return blok;
+}
+
+vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> sbox)
+{
+	string str;
+	for(int i=0;i<hs.size();i++)
+		for (int j=0;j<hs[i].size();j++)
+		{
+			str=hs[i][j];
+			hs[i][j]=sbox[str];
+		}
+	return hs;
+}
+
 string generate_text (int n, int m)
 {
 	string str;
@@ -150,23 +188,4 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 		i++;
 	}
 	return sblock;
-}
-
-vector <string> sub_str_blok (string str, int m)
-{
-	vector <string> blok;
-	char alpha;
-
-	for (int i=0;i<str.size();)
-	{
-		string sub;
-		for (int j=0;j<m;j++)
-		{
-			alpha=str[i];
-			sub=sub+alpha;
-			i++;
-		}
-		blok.push_back(sub);
-	}
-	return blok;
 }
