@@ -162,20 +162,6 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 	return sblock;
 }
 
-string generate_text (int n, int m)
-{
-	string str;
-	char alpha;
-	int r;
-	for (int i=0;i<n*m;i++)
-	{
-		r=rand()%2;
-		alpha=r+'0';
-		str=str+alpha;
-	}
-	return str;
-}
-
 vector <string> sub_str_blok (string str, int m)
 {
 	vector <string> blok;
