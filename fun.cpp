@@ -10,13 +10,6 @@ using namespace std;
 
 #include "fun.h"
 
-map <int, int> swap(map <int, int> tabl, int count)
-{
-	for (int i = 0; i<count; i++)
-		swap(tabl[i], tabl[rand() % count]);// генерируем таблицу замены
-	return tabl;
-}
-
 map <int, int> generate_tabl(int count)
 {
 	map <int, int> a;
@@ -73,7 +66,7 @@ int Counter_Bits(vector <string> &text)
 	return count;
 }
 
-string Random_Bytes(int m)
+string Random_Bits(int m)
 {
 	string str;
 	for (int i = 0; i < m; i++)
@@ -136,20 +129,6 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 		i++;
 	}
 	return sblock;
-}
-
-string generate_text (int n, int m)
-{
-	string str;
-	char alpha;
-	int r;
-	for (int i=0;i<n*m;i++)
-	{
-		r=rand()%2;
-		alpha=r+'0';
-		str=str+alpha;
-	}
-	return str;
 }
 
 vector <string> sub_str_blok (string str, int m)
