@@ -43,13 +43,13 @@ vector <vector <string>> sub_str_blok (string str, int n, int m)
 	vector <vector <string>> blok;
 	char alpha;
 
-	for (int i = 0; i < str.size();)
+	for (int i = 0; i < (int) str.size();)
 	{
 		vector <string> oops;
-		for (int j=0;j<n;j++)//отмеряем n штук блоков
+		for (int j = 0; j < n; j++)//отмеряем n штук блоков
 		{
 			string sub;
-			for (int k=0;k<m;k++)//отмеряем m штук символов
+			for (int k = 0; k < m; k++)//отмеряем m штук символов
 			{
 				alpha=str[i];
 				sub=sub+alpha;
@@ -65,8 +65,8 @@ vector <vector <string>> sub_str_blok (string str, int n, int m)
 vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> sbox)
 {
 	string str;
-	for(int i=0;i<hs.size();i++)
-		for (int j=0;j<hs[i].size();j++)
+	for(int i = 0 ;i < (int)hs.size(); i++)
+		for (int j = 0;j < (int)hs[i].size(); j++)
 		{
 			str=hs[i][j];
 			hs[i][j]=sbox[str];
@@ -79,7 +79,7 @@ string generate_text (int n, int m)
 	string str;
 	char alpha;
 	int r;
-	for (int i=0;i<n*m;i++)
+	for (int i = 0; i < n*m; i++)
 	{
 		r=rand()%2;
 		alpha=r+'0';
@@ -90,7 +90,7 @@ string generate_text (int n, int m)
 
 map <int, int> swap(map <int, int> tabl, int n,int m)
 {
-	for (int i = 0; i<n*m; i++)
+	for (int i = 0; i < n*m; i++)
 		swap(tabl[i], tabl[rand() % (n*m)]);// генерируем таблицу замены
 	return tabl;
 }
@@ -106,7 +106,7 @@ map <int, int> generate_tabl(int n, int m)
 vector <int> generate_key(int n, int m, int j)
 {
 	vector <int> key;
-	for (int i = 0; i<n*m*j; i++)
+	for (int i = 0; i < n*m*j; i++)
 	{
 		int r = rand() % 2;
 		key.push_back(r);
@@ -120,10 +120,10 @@ vector <vector<int>> sub(vector<int> key, int n, int m, int j)
 	int counter = 0;
 
 	sub_key.resize(j); // без этого не работает (??!??!!!)
-	for (int i = 0; i<n; i++)// В цикле от 1 до n (n штук)
+	for (int i = 0; i < n; i++)// В цикле от 1 до n (n штук)
 	{
 		sub_key[i].resize(n*m);
-		for (int k = 0; k<n*m; k++) // В цикле от 1 до m (размер m)
+		for (int k = 0; k < n*m; k++) // В цикле от 1 до m (размер m)
 		{
 			sub_key[i].push_back(key[counter]);
 			counter++;
@@ -185,11 +185,10 @@ vector <string> Random_sbox(int m)
 map <string, string> generate_sbox(int m)
 {
 	map <string, string> table;
-	int k;
 
 	for (int i = 0; i < (int) pow(2.0, (double) m); i++)
 	{
-		k = i;
+		int k = i;
 		string str;
 		for (int j = 0; j < m; j++)
 		{
@@ -205,9 +204,10 @@ map <string, string> generate_sbox(int m)
 map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 {
 	vector <string> temp = Random_sbox(m);
-	int i = 0;//Счетчик, чтобы обойти вектор
-	map <string,string> :: iterator it;//Счетчик, чтобы обойти map
-	for (it=sblock.begin();it!=sblock.end();it++)
+	int i = 0;
+	map <string,string> :: iterator it;
+
+	for (it = sblock.begin(); it!=sblock.end(); it++)
 	{
 		(*it).second = temp[i];
 		i++;
