@@ -10,6 +10,31 @@ using namespace std;
 
 #include "fun.h"
 
+string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j)
+{
+	string answer;
+
+	for (int i=0;i<hs.size();i++)//по всем возможным блокам из (n блоков по m элементов)
+	{
+		string str;//Сохраняем сюда целую строчку (склеиваем из s-blok)
+		char alpha,betta;//созданы для удобства понимания кода. И чтобы не громоздить скобки
+
+		for (int k=0;k<j;k++)//j раундов
+		{
+			for (int h=0;h<hs[i].size();h++)//Склеиваем строку (n блоков склеиваем вместе)
+				str=str+hs[i][h];
+			for (int h=0;h<str.size();h++)//делаем XOR char-ов
+			{
+				int r = sub_key[i][		p_box[h]	];//берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
+				betta=r+'0';
+				alpha=((str[h]) ^ (betta));//сам xor
+				answer=answer+alpha;//добавляем букву
+			}
+		}
+	}
+	return answer;
+}
+
 vector <vector <string>> sub_str_blok (string str, int n, int m)
 {
 	//!!
