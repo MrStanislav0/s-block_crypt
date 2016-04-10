@@ -14,23 +14,23 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 {
 	string answer;
 
-	for (int i=0;i<hs.size();i++)//по всем возможным блокам из (n блоков по m элементов)
+	for (int i = 0; i < (int) hs.size(); i++)//по всем возможным блокам из (n блоков по m элементов)
 	{
-		string str;//Сохраняем сюда целую строчку (склеиваем из s-blok)
+		string str; // Сохраняем сюда целую строчку (склеиваем из s-blok)
 		
-		int r,alpha;
-		char betta;//созданы для удобства понимания кода. И чтобы не громоздить скобки
+		int r, alpha;
+		char betta; //созданы для удобства понимания кода. И чтобы не громоздить скобки
 
-		for (int k=0;k<j;k++)//j раундов
+		for (int k = 0; k < j; k++)//j раундов
 		{
-			for (int h=0;h<hs[i].size();h++)//Склеиваем строку (n блоков склеиваем вместе)
+			for (int h=0; h < (int) hs[i].size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
 				str=str+hs[i][h];
-			for (int h=0;h<str.size();h++)//делаем XOR char-ов
+			for (int h = 0; h < (int) str.size(); h++)
 			{
-				r = sub_key[i][		p_box[h]	];//берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
-				alpha = str[h]-'0';
-				betta=alpha^r+'0';
-				answer=answer+betta;//добавляем букву
+				r = sub_key[i][p_box[h]]; // берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
+				alpha = str[h] - '0';
+				betta = alpha ^ r + '0';
+				answer = answer + betta; //добавляем букву
 			}
 		}
 	}
@@ -39,12 +39,11 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 
 vector <vector <string>> sub_str_blok (string str, int n, int m)
 {
-	//!!
 	//в функции не рассматриваю, когда не влезает целиком sblok. То есть n=3,m=3, длина текста 17
 	vector <vector <string>> blok;
 	char alpha;
 
-	for (int i=0;i<str.size();)
+	for (int i = 0; i < str.size();)
 	{
 		vector <string> oops;
 		for (int j=0;j<n;j++)//отмеряем n штук блоков
@@ -99,7 +98,7 @@ map <int, int> swap(map <int, int> tabl, int n,int m)
 map <int, int> generate_tabl(int n, int m)
 {
 	map <int, int> a;
-	for (int i = 0; i<n*m; i++)
+	for (int i = 0; i < n*m; i++)
 		a[i] = i;
 	return a;
 }
@@ -107,11 +106,10 @@ map <int, int> generate_tabl(int n, int m)
 vector <int> generate_key(int n, int m, int j)
 {
 	vector <int> key;
-	int r;
-	for (int i = 0; i<n*m*j; i++) //Генерируем ключ
+	for (int i = 0; i<n*m*j; i++)
 	{
-		r = rand() % 2; //собственно сгенерировали число, взяли остаток от деления на 2 (хз верно или нет)
-		key.push_back(r);// запихиваем в массив
+		int r = rand() % 2;
+		key.push_back(r);
 	}
 	return key;
 }
@@ -137,9 +135,9 @@ vector <vector<int>> sub(vector<int> key, int n, int m, int j)
 int Counter_Bits(vector <string> &text)
 {
 	int count = 0;
-	for (int i = 0; i < (int)text.size(); i++)
+	for (int i = 0; i < (int) text.size(); i++)
 	{
-		for (int j = 0; j < (int)text[i].size(); j++)
+		for (int j = 0; j < (int) text[i].size(); j++)
 		{
 			unsigned int temp = text[i][j];
 			while (temp != 0)
@@ -167,7 +165,7 @@ vector <string> Random_sbox(int m)
 {
 	vector <string> temp_table;
 
-	for (int i = 0; i < (int)pow(2.0, (double)m); i++)
+	for (int i = 0; i < (int) pow(2.0, (double)m); i++)
 	{
 		int k = i;
 		string str;
