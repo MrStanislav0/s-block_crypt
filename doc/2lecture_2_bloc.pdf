@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+<link rel="shortcut icon" href="https://new.vk.com/images/icons/favicons/fav_logo.ico?5"><link rel="stylesheet" type="text/css" href="2lecture_2_bloc_files/common.css"><meta name="robots" content="noindex,nofollow"><title>2lecture_2_bloc.pdf</title>
+<style>
+html, body {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  border: none;
+}
+.iframe {
+  border: none;
+}
+.docs_panel_wrap {
+  height: 45px;
+}
+.docs_panel {
+  background: #F1F1F1;
+  position: fixed;
+  width: 100%;
+  height: 45px;
+  -webkit-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+}
+.can_zoom {
+  max-width: 100%;
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: -zoom-in;
+}
+.can_zoom_out {
+  min-width: 100%;
+  cursor: -webkit-zoom-out;
+  cursor: -moz-zoom-out;
+  cursor: -zoom-out;
+}
+</style>
+<script>
+function saveDoc() {
+  var src = 'https://psv4.vk.me/c615122/u33874612/docs/7daaec0f9523/2lecture_2_bloc.pdf?extra=5BXYwhtINYzeCgG2IntEycHVivFW1kKr1OBw3opXJkPfBhLzOjDkAfjZe30NhzRvV7YePSdtjokk3k4Ua-JHp_M79G-u2tIc1stta91MjBoaFi73rnjLk11KJPErBdXRDCHEor0Swzg';
+  if (src.match(/\?/)) {
+    src += '&dl=1';
+  } else {
+    src += '?dl=1';
+  }
+  location.replace(src);
+  return false;
+}
+function imgZoom(obj) {
+  if (obj.className == 'can_zoom') {
+    obj.className = 'can_zoom_out';
+  } else {
+    obj.className = 'can_zoom';
+    window.scroll(0, 0);
+  }
+}
+function onload() {
+  var iframe = document.getElementById('iframe');
+  if (iframe) {
+    if(window.innerWidth) {
+      var h = window.innerHeight;
+    } else {
+      var h = document.body.clientHeight;
+    }
+    iframe.style.height = (h - 45 - 2) +'px';
+  }
+
+}
+</script>
+</head>
+<body onkeydown="if (event.keyCode == 83 &amp;&amp; (event.ctrlKey || event.metaKey)) return saveDoc(event);" onload="onload();">
+<noindex>
+<div class="docs_panel_wrap">
+  <div class="docs_panel">
+    <div style="padding: 10px 20px;">
+      <button class="flat_button fl_r" onclick="return saveDoc();">Сохранить документ на диск</button>
+      <div class="fl_r" style="padding: 6px 10px 0px; color: #888888;"></div>
+      <a style="padding-top: 6px; display: block;" class="fl_l" onclick="return saveDoc();"><b>2lecture_2_bloc.pdf</b></a>&nbsp;
+    </div>
+  </div>
+</div><iframe style="height: 924px;" id="iframe" class="iframe" src="2lecture_2_bloc_files/2lecture_2_bloc_002.pdf" height="100%" width="100%"></iframe>
+</noindex>
+
+</body></html>
