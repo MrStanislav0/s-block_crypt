@@ -57,7 +57,7 @@ int main()
 	text=generate_text (n,m);
 	hs=sub_str_blok(text,n,m);//разбили, 
 	hs=use_s_box(hs,sbox);//заменили.
-	XOR(hs,p_box, sub_key,j);//Сложили по модулю 2 с ключом
+	new_text=XOR(hs,p_box, sub_key,j);//Сложили по модулю 2 с ключом
 
 	return 0;
 }
