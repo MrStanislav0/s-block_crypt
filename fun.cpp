@@ -17,7 +17,9 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 	for (int i=0;i<hs.size();i++)//по всем возможным блокам из (n блоков по m элементов)
 	{
 		string str;//Сохраняем сюда целую строчку (склеиваем из s-blok)
-		char alpha,betta;//созданы для удобства понимания кода. И чтобы не громоздить скобки
+		
+		int r,alpha;
+		char betta;//созданы для удобства понимания кода. И чтобы не громоздить скобки
 
 		for (int k=0;k<j;k++)//j раундов
 		{
@@ -25,10 +27,10 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 				str=str+hs[i][h];
 			for (int h=0;h<str.size();h++)//делаем XOR char-ов
 			{
-				int r = sub_key[i][		p_box[h]	];//берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
-				betta=r+'0';
-				alpha=((str[h]) ^ (betta));//сам xor
-				answer=answer+alpha;//добавляем букву
+				r = sub_key[i][		p_box[h]	];//берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
+				alpha = str[h]-'0';
+				betta=alpha^r+'0';
+				answer=answer+betta;//добавляем букву
 			}
 		}
 	}
