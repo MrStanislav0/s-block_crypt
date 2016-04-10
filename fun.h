@@ -19,4 +19,7 @@ string generate_text (int, int); //Создано для тестов. Гене�
 vector <vector <string>> sub_str_blok (string str,int n, int m);//Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> sbox);//Заменяем sblok
 
+string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j);//собственно последние два блока, как я понял. 
+//XOR, согласно p_box
+
 #endif 
