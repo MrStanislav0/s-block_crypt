@@ -5,7 +5,7 @@ map <int, int> generate_tabl(int n, int m);//Cоздает таблицу зам
 map <int, int> swap(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
 vector <int> generate_key(int n, int m, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
-vector < vector <int> > sub(vector<int> key, int n, int m, int j); //Разбиваем ключ на K(i)
+vector <vector<int>> sub(vector<int> key, int j); //Разбиваем ключ на K(i)
 int Counter_Bits(vector <string> &text); //Подсчет битов в тексте
 string Random_Bits(int m); //Генерация случайной последовательности 0 и 1 длины m, то есть текста
 
