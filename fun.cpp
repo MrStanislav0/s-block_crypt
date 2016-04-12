@@ -114,21 +114,20 @@ vector <int> generate_key(int n, int m, int j)
 	return key;
 }
 
-vector <vector<int>> sub(vector<int> key, int n, int m, int j)
+vector <vector<int>> sub(vector<int> key, int j)
 {
 	vector <vector <int>> sub_key;
-	int counter = 0;
+	sub_key.resize(j);
 
-	sub_key.resize(j); // без этого не работает (??!??!!!)
-	for (int i = 0; i < n; i++)// В цикле от 1 до n (n штук)
+	int mn = ((int)sub_key.size()) / j;
+	for (int i = 0; i < j; i++)
 	{
-		sub_key[i].resize(n*m);
-		for (int k = 0; k < n*m; k++) // В цикле от 1 до m (размер m)
+		for (int k = 0; k < mn; k++)
 		{
-			sub_key[i].push_back(key[counter]);
-			counter++;
+			sub_key[i].push_back(key[k]);
 		}
 	}
+
 	return sub_key;
 }
 
