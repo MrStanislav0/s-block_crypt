@@ -45,7 +45,7 @@ int main()
 	cin >> n >> m >> j;
 	
 	key = generate_key(n, m, j); // Генерация ключа
-	sub_key = sub(key,n,m,j); // Разбиение ключа
+	sub_key = sub(key, j); // Разбиение ключа
 	
 	
 	sbox = generate_sbox(m); // Генерация s-блока
