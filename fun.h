@@ -1,6 +1,12 @@
 #ifndef MODULE3_H
 #define MODULE3_H
 
+struct difference //создано, для того, чтобы считать разность: x XOR y = z --> map <string, vector<difference>>
+{
+	string x;
+	string y;
+};
+
 map <int, int> generate_tabl(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
 map <int, int> swap(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
@@ -22,5 +28,8 @@ vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//За�
 string XOR (vector <string> hs, map<int,int> p_box,  vector<int> sub_key);//собственно последние два блока, как я понял.
 vector <string> sub_block (string str,int n,int m);
 //XOR, согласно p_box
+
+string help_xor (string a,string b);//создано, чтобы делать XOR двух строк и не заморачиваться, используется в create_dif_tabl, из-за свойства xor (a xor b = c --> a xor c = b)
+map <string, vector<difference>> create_dif_tabl (int m);
 
 #endif 

@@ -10,6 +10,22 @@ using namespace std;
 
 #include "fun.h"
 
+
+string help_xor (string a ,string b)
+{
+	int r,alpha;
+	char betta;
+	string str;
+	for (int h = 0; h < (int) a.size(); h++)
+	{
+		r = a[h]-'0'; // берем значение согласно таблице замены элемент под номером h
+		alpha = b[h] - '0';
+		betta = alpha ^ r + '0';
+		str = str + betta; //добавляем букву
+	}
+	return str;
+}
+
 vector <string> sub_block (string str,int n,int m)
 {
 	vector  <string> blok;
@@ -221,4 +237,38 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 		i++;
 	}
 	return sblock;
+}
+
+map <string, vector<difference>> create_dif_tabl (int m)
+{
+	map <string, vector<difference>> table;//будем возвращать это
+	vector <string> save;//Храним тут все возможные строки
+	for (int i = 0; i < (int) pow(2.0, (double) m); i++)//генерируем все возможные строки
+	{
+		int k = i;
+		string str;
+		for (int j = 0; j < m; j++)
+		{
+			char temp = k % 2 + '0';
+			str = str + temp;
+			k = k / 2;
+		}
+		save.push_back(str);
+	}
+
+	vector<difference> help;//вспомогательная, дабы не париться с кучей скобок и был понятнее код
+	help.resize((int) pow(2.0, (double) m));
+	string str;
+
+	for (int i = 0; i < (int) pow(2.0, (double) m); i++)
+	{
+		for (int k = 0; k < (int) pow(2.0, (double) m); k++)
+		{
+			help[k].y=save[k];
+			str = help_xor(save[i],save[k]);
+			help[k].x=str;
+		}
+		table[save[i]]=help;
+	}
+	return table;
 }

@@ -29,6 +29,7 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 #include "Sfiles.h"// Работа с файлами
 #include "fun.h" // Все остальные функции
 
+
 int main()
 {
 	srand(time(0));
@@ -41,6 +42,7 @@ int main()
 	string text; // Исходный текст
 	vector <vector <string>> hs; // Разбитый на части исходный текст
 	string new_text; // Зашифрованный текст
+	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
 	
 	cin >> n >> m >> j;
 	cout<<n<<m<<j;
@@ -65,5 +67,6 @@ int main()
 			new_text = XOR(hs[h],p_box, sub_key[i]); // Сложение по модулю 2 текста и ключа в соотвествии с p-блоком
 			hs[h]=sub_block (new_text,n,m);//записываем полученное значение
 		}
+	dif=create_dif_tabl(m);// создаем таблицу такую
 	return 0;
 }
