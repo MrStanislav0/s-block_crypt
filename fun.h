@@ -26,12 +26,13 @@ vector <vector <string>> sub_str_blok (string str,int n, int m);//Разбива
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
 
 string use_p_box (vector <string> hs,map<int,int>p_box);//перестановка строки согласно p_box
-string int_to_str (vector <int> sub_key);
-string sbox_str (string str,  map <string,string> sbox);
+string int_to_str (vector <int> sub_key);//создано для удобства XOR
+string sbox_str (string str,  map <string,string> sbox);//создано для удобства sbox
 vector <string> sub_block (string str,int n,int m);
 //XOR, согласно p_box
 
 string help_xor (string a,string b);//создано, чтобы делать XOR двух строк и не заморачиваться, используется в create_dif_tabl, из-за свойства xor (a xor b = c --> a xor c = b)
 map <string, vector<difference>> create_dif_tabl (int m);
+map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox);
 
 #endif 

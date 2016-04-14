@@ -281,3 +281,26 @@ map <string, vector<difference>> create_dif_tabl (int m)
 	}
 	return table;
 }
+
+map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox)
+{
+	map <string, map<string,int>> Ulia;
+
+	map <string, vector<difference>>::iterator it;
+	string str,c;
+	string a1,a2;
+
+	for (it=dif.begin();it!=dif.end();it++)
+	{
+		str=(*it).first;
+		for (int i=0;i<(*it).second.size();i++)
+		{
+			a1=sbox_str ( (*it).second[i].x,sbox);
+			a2=sbox_str ( (*it).second[i].y,sbox);
+			c=help_xor (a1,a2);
+			Ulia [c][str]++;
+		}
+	}
+	return Ulia;
+}
+

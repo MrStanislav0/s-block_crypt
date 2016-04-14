@@ -43,9 +43,9 @@ int main()
 	vector <vector <string>> hs; // Разбитый на части исходный текст
 	string new_text; // Зашифрованный текст
 	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
+	map <string, map<string,int>> Ulia; //подсчет C исходя из dif
 	
 	cin >> n >> m >> j;
-	cout<<n<<m<<j;
 	
 	key = generate_key(n, m, j); // Генерация ключа
 	sub_key = sub(key,n,m,j); // Разбиение ключа
@@ -71,6 +71,8 @@ int main()
 			new_text=help_xor(p_str,sub_key_in_str);
 			hs[h]=sub_block (new_text,n,m);//записываем полученное значение
 		}
+
 	dif=create_dif_tabl(m);// создаем таблицу такую
+	Ulia=create_tabl_count_diff(dif,sbox);
 	return 0;
 }
