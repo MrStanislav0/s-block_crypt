@@ -5,7 +5,7 @@ map <int, int> generate_tabl(int n, int m);//Cоздает таблицу зам
 map <int, int> swap(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
 vector <int> generate_key(int n, int m, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
-vector <vector<int>> sub(vector<int> key, int j); //Разбиваем ключ на K(i)
+vector <vector<int>> sub(vector<int> key,int n,int m, int j); //Разбиваем ключ на K(i)
 int Counter_Bits(vector <string> &text); //Подсчет битов в тексте
 string Random_Bits(int m); //Генерация случайной последовательности 0 и 1 длины m, то есть текста
 
@@ -17,9 +17,10 @@ map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // �
 string generate_text (int, int); //Создано для тестов. Генерирует строку n*m из 0 и 1. По сути - открытый текст
 
 vector <vector <string>> sub_str_blok (string str,int n, int m);//Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
-vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> sbox);//Заменяем sblok
+vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
 
-string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j);//собственно последние два блока, как я понял. 
+string XOR (vector <string> hs, map<int,int> p_box,  vector<int> sub_key);//собственно последние два блока, как я понял.
+vector <string> sub_block (string str,int n,int m);
 //XOR, согласно p_box
 
 #endif 

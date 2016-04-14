@@ -43,9 +43,10 @@ int main()
 	string new_text; // Зашифрованный текст
 	
 	cin >> n >> m >> j;
+	cout<<n<<m<<j;
 	
 	key = generate_key(n, m, j); // Генерация ключа
-	sub_key = sub(key, j); // Разбиение ключа
+	sub_key = sub(key,n,m,j); // Разбиение ключа
 	
 	
 	sbox = generate_sbox(m); // Генерация s-блока
@@ -55,9 +56,14 @@ int main()
 	p_box = swap(p_box,n,m); // Перемешивание элементов в таблице
 
 	text = generate_text (n,m); // Генерация текста (тестовая функция)
-	hs = sub_str_blok(text,n,m); // Разбиение текста 
-	hs = use_s_box(hs,sbox); // Замена битов в тексте в соотвествии с таблицей замены
-	new_text = XOR(hs,p_box, sub_key,j); // Сложение по модулю 2 текста и ключа в соотвествии с p-блоком
-
+	hs = sub_str_blok(text,n,m); // Разбиение текста
+	
+	for (int h=0;h<hs.size();h++)//мы разбивали текст на (?) частей по n*m строк, цикл по всем (?) частей
+		for (int i=0;i<j;i++) //j раундов
+		{
+			hs[h] = use_s_box(hs[h],sbox); // Замена sblokov в тексте в соотвествии с таблицей замены
+			new_text = XOR(hs[h],p_box, sub_key[i]); // Сложение по модулю 2 текста и ключа в соотвествии с p-блоком
+			hs[h]=sub_block (new_text,n,m);//записываем полученное значение
+		}
 	return 0;
 }

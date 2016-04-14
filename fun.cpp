@@ -10,29 +10,42 @@ using namespace std;
 
 #include "fun.h"
 
-string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j)
+vector <string> sub_block (string str,int n,int m)
+{
+	vector  <string> blok;
+	char alpha;
+	for (int i = 0; i < (int) str.size();)
+		for (int j = 0; j < n; j++)//отмеряем n штук блоков
+		{
+			string sub;
+			for (int k = 0; k < m; k++)//отмеряем m штук символов
+			{
+				alpha=str[i];
+				sub=sub+alpha;
+				i++;
+			}
+			blok.push_back(sub);
+		}
+	return blok;
+}
+
+string XOR ( vector <string> hs, map<int,int> p_box,  vector<int> sub_key)
 {
 	string answer;
+	string str; // Сохраняем сюда целую строчку (склеиваем из s-blok)
 
-	for (int i = 0; i < (int) hs.size(); i++)//по всем возможным блокам из (n блоков по m элементов)
+	int r, alpha;
+	char betta; //созданы для удобства понимания кода. И чтобы не громоздить скобки
+
+	for (int h=0; h < (int) hs.size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
+		str=str+hs[h];
+
+	for (int h = 0; h < (int) str.size(); h++)
 	{
-		string str; // Сохраняем сюда целую строчку (склеиваем из s-blok)
-		
-		int r, alpha;
-		char betta; //созданы для удобства понимания кода. И чтобы не громоздить скобки
-
-		for (int k = 0; k < j; k++)//j раундов
-		{
-			for (int h=0; h < (int) hs[i].size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
-				str=str+hs[i][h];
-			for (int h = 0; h < (int) str.size(); h++)
-			{
-				r = sub_key[i][p_box[h]]; // берем значение из sub_key из j-ого (какой раунд) и согласно таблице замены элемент под номером h
-				alpha = str[h] - '0';
-				betta = alpha ^ r + '0';
-				answer = answer + betta; //добавляем букву
-			}
-		}
+		r = sub_key[p_box[h]]; // берем значение согласно таблице замены элемент под номером h
+		alpha = str[h] - '0';
+		betta = alpha ^ r + '0';
+		answer = answer + betta; //добавляем букву
 	}
 	return answer;
 }
@@ -62,15 +75,14 @@ vector <vector <string>> sub_str_blok (string str, int n, int m)
 	return blok;
 }
 
-vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> sbox)
+vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 {
 	string str;
 	for(int i = 0 ;i < (int)hs.size(); i++)
-		for (int j = 0;j < (int)hs[i].size(); j++)
-		{
-			str=hs[i][j];
-			hs[i][j]=sbox[str];
-		}
+	{
+		str=hs[i];
+		hs[i]=sbox[str];
+	}
 	return hs;
 }
 
@@ -114,20 +126,17 @@ vector <int> generate_key(int n, int m, int j)
 	return key;
 }
 
-vector <vector<int>> sub(vector<int> key, int j)
+vector <vector<int>> sub(vector<int> key,int n,int m, int j)
 {
 	vector <vector <int>> sub_key;
+	int counter=0;
 	sub_key.resize(j);
-
-	int mn = ((int)sub_key.size()) / j;
 	for (int i = 0; i < j; i++)
-	{
-		for (int k = 0; k < mn; k++)
+		for (int k = 0; k < n*m; k++)
 		{
-			sub_key[i].push_back(key[k]);
+			sub_key[i].push_back(key[counter]);
+			counter++;
 		}
-	}
-
 	return sub_key;
 }
 
