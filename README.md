@@ -1,6 +1,6 @@
 # Блочный шифр
 
-[О блочном шифре (pdf)](http://frela14.ru/_fr/3/2lecture_2_bloc.pdf)
+[Методичка от Липилина (pdf)](https://yadi.sk/i/Xe1wrRx4qzX4S)
 
 ![Наброски Липилина](/img/lipilin2.jpg)
 
