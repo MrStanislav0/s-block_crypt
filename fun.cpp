@@ -11,6 +11,7 @@ using namespace std;
 #include "fun.h"
 
 
+
 string help_xor (string a ,string b)
 {
 	int r,alpha;
@@ -45,25 +46,27 @@ vector <string> sub_block (string str,int n,int m)
 	return blok;
 }
 
-string XOR ( vector <string> hs, map<int,int> p_box,  vector<int> sub_key)
+string use_p_box (vector <string> hs,map<int,int>p_box)
 {
+	string str;
 	string answer;
-	string str; // Сохраняем сюда целую строчку (склеиваем из s-blok)
-
-	int r, alpha;
-	char betta; //созданы для удобства понимания кода. И чтобы не громоздить скобки
-
 	for (int h=0; h < (int) hs.size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
 		str=str+hs[h];
-
 	for (int h = 0; h < (int) str.size(); h++)
-	{
-		r = sub_key[p_box[h]]; // берем значение согласно таблице замены элемент под номером h
-		alpha = str[h] - '0';
-		betta = alpha ^ r + '0';
-		answer = answer + betta; //добавляем букву
-	}
+		answer=answer+str[ p_box[h] ];
 	return answer;
+}
+
+string int_to_str (vector <int> sub_key)
+{
+	string str;
+	char alpha;
+	for (int i=0;i<sub_key.size();i++)
+	{
+		alpha=sub_key[i]+'0';
+		str=str+alpha;
+	}
+	return str;
 }
 
 vector <vector <string>> sub_str_blok (string str, int n, int m)
@@ -89,6 +92,12 @@ vector <vector <string>> sub_str_blok (string str, int n, int m)
 		blok.push_back(oops);
 	}
 	return blok;
+}
+
+string sbox_str (string str,  map <string,string> sbox)
+{
+	string answer=sbox[str];
+	return answer;
 }
 
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox)

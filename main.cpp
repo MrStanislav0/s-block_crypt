@@ -64,7 +64,11 @@ int main()
 		for (int i=0;i<j;i++) //j раундов
 		{
 			hs[h] = use_s_box(hs[h],sbox); // Замена sblokov в тексте в соотвествии с таблицей замены
-			new_text = XOR(hs[h],p_box, sub_key[i]); // Сложение по модулю 2 текста и ключа в соотвествии с p-блоком
+			string p_str;
+			p_str=use_p_box(hs[h],p_box);
+			string sub_key_in_str;
+			sub_key_in_str = int_to_str(sub_key[i]);
+			new_text=help_xor(p_str,sub_key_in_str);
 			hs[h]=sub_block (new_text,n,m);//записываем полученное значение
 		}
 	dif=create_dif_tabl(m);// создаем таблицу такую

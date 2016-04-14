@@ -25,7 +25,9 @@ string generate_text (int, int); //Создано для тестов. Гене�
 vector <vector <string>> sub_str_blok (string str,int n, int m);//Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
 
-string XOR (vector <string> hs, map<int,int> p_box,  vector<int> sub_key);//собственно последние два блока, как я понял.
+string use_p_box (vector <string> hs,map<int,int>p_box);//перестановка строки согласно p_box
+string int_to_str (vector <int> sub_key);
+string sbox_str (string str,  map <string,string> sbox);
 vector <string> sub_block (string str,int n,int m);
 //XOR, согласно p_box
 
