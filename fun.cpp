@@ -12,17 +12,13 @@ using namespace std;
 
 
 
-string help_xor (string a ,string b)
+string help_xor (string a, string b)
 {
-	int r,alpha;
-	char betta;
 	string str;
-	for (int h = 0; h < (int) a.size(); h++)
+	for (int i = 0; i < (int) a.size(); i++)
 	{
-		r = a[h]-'0'; // берем значение согласно таблице замены элемент под номером h
-		alpha = b[h] - '0';
-		betta = alpha ^ r + '0';
-		str = str + betta; //добавляем букву
+		char temp = (b[i] - '0') ^ (a[i] - '0') + '0';
+		str = str + temp; //добавляем букву
 	}
 	return str;
 }
@@ -46,7 +42,7 @@ vector <string> sub_block (string str,int n,int m)
 	return blok;
 }
 
-string use_p_box (vector <string> hs,map<int,int>p_box)
+string use_p_box (vector <string> hs, map<int,int>p_box)
 {
 	string str;
 	string answer;
@@ -60,11 +56,10 @@ string use_p_box (vector <string> hs,map<int,int>p_box)
 string int_to_str (vector <int> sub_key)
 {
 	string str;
-	char alpha;
 	for (int i=0;i<sub_key.size();i++)
 	{
-		alpha=sub_key[i]+'0';
-		str=str+alpha;
+		char temp = sub_key[i]+'0';
+		str=str + temp;
 	}
 	return str;
 }
@@ -114,40 +109,44 @@ vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 string generate_text (int n, int m)
 {
 	string str;
-	char alpha;
-	int r;
 	for (int i = 0; i < n*m; i++)
 	{
-		r=rand()%2;
-		alpha=r+'0';
-		str=str+alpha;
+		int r = rand() % 2;
+		char temp = r + '0';
+		str=str + temp;
 	}
 	return str;
 }
 
-map <int, int> swap(map <int, int> tabl, int n,int m)
+map <int, int> Mix_pbox(map <int, int> tabl, int n,int m)
 {
 	for (int i = 0; i < n*m; i++)
 		swap(tabl[i], tabl[rand() % (n*m)]);// генерируем таблицу замены
 	return tabl;
 }
 
-map <int, int> generate_tabl(int n, int m)
+map <int, int> generate_pbox(int n, int m)
 {
-	map <int, int> a;
+	map <int, int> p_box;
 	for (int i = 0; i < n*m; i++)
-		a[i] = i;
-	return a;
+		p_box[i] = i;
+
+	p_box = Mix_pbox(p_box, m, n);
+
+	return p_box;
 }
 
-vector <int> generate_key(int n, int m, int j)
+vector <vector <int>> generate_key(int n, int m, int j)
 {
-	vector <int> key;
+	vector <int> temp_key;
 	for (int i = 0; i < n*m*j; i++)
 	{
 		int r = rand() % 2;
-		key.push_back(r);
+		temp_key.push_back(r);
 	}
+
+	vector <vector <int>> key = sub(temp_key, n, m, j);
+
 	return key;
 }
 
@@ -231,6 +230,9 @@ map <string, string> generate_sbox(int m)
 		}
 		table[str] = str;
 	}
+
+	table = generate_tabl_mix(table, m);
+
 	return table;
 }
 
@@ -282,9 +284,29 @@ map <string, vector<difference>> create_dif_tabl (int m)
 	return table;
 }
 
-map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox)
+map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox, int m)
 {
 	map <string, map<string,int>> Ulia;
+
+	// Заполнение таблицы нулями
+
+	int cikl = (int)pow(2.0, (double)m);
+
+	for (int i = 0; i < cikl; i++)
+	{
+		string temp1 = Int_to_bitstr(i, m);
+
+		for (int j = 0; j < cikl; j++)
+		{
+			
+			string temp2 = Int_to_bitstr(j, m);
+
+			Ulia[temp1][temp2] = 0;
+		}
+
+	}
+
+	// Заполнение таблицы значениями
 
 	map <string, vector<difference>>::iterator it;
 	string str,c;
@@ -304,3 +326,15 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 	return Ulia;
 }
 
+string Int_to_bitstr(int n, int bit)
+{
+	string str;
+	for (int j = 0; j < bit; j++)
+	{
+		char temp = n % 2 + '0';
+		str = str + temp;
+		n = n / 2;
+	}
+
+	return str;
+}

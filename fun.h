@@ -7,10 +7,10 @@ struct difference //создано, для того, чтобы считать �
 	string y;
 };
 
-map <int, int> generate_tabl(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
-map <int, int> swap(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
+map <int, int> generate_pbox(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
+map <int, int> Mix_pbox(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
-vector <int> generate_key(int n, int m, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
+vector <vector <int>> generate_key(int n, int m, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
 vector <vector<int>> sub(vector<int> key,int n,int m, int j); //Разбиваем ключ на K(i)
 int Counter_Bits(vector <string> &text); //Подсчет битов в тексте
 string Random_Bits(int m); //Генерация случайной последовательности 0 и 1 длины m, то есть текста
@@ -33,6 +33,8 @@ vector <string> sub_block (string str,int n,int m);
 
 string help_xor (string a,string b);//создано, чтобы делать XOR двух строк и не заморачиваться, используется в create_dif_tabl, из-за свойства xor (a xor b = c --> a xor c = b)
 map <string, vector<difference>> create_dif_tabl (int m);
-map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox);
+map <string, map<string, int>> create_tabl_count_diff(map <string, vector<difference>> dif, map <string, string> sbox, int m);
+
+string Int_to_bitstr(int n, int bit);
 
 #endif 
