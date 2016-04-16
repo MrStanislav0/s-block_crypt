@@ -11,8 +11,6 @@ map <int, int> generate_pbox(int n, int m);//Cоздает таблицу зам
 map <int, int> Mix_pbox(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
 vector <string> generate_key(int n, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
-vector <vector<int>> sub(vector<int> key,int n,int m, int j); //Разбиваем ключ на K(i)
-int Counter_Bits(vector <string> &text); //Подсчет битов в тексте
 
 map <string, string> generate_sbox(int m); //Создает таблицу размера (2^m - 2). В ней как по таблице истинность упорядочены 000, 001... (смотри дальше Random_sbox)
 vector <string> Random_sbox(int m); //Генерация s-блока, причем, мы их перемешиваем, после запишем в map и полчим sbox (смотри generate_tabl_mix )

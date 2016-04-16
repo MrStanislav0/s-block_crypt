@@ -128,38 +128,6 @@ vector <string> generate_key(int n, int j)
 	return key;
 }
 
-vector <vector<int>> sub(vector<int> key,int n,int m, int j)
-{
-	vector <vector <int>> sub_key;
-	int counter=0;
-	sub_key.resize(j);
-	for (int i = 0; i < j; i++)
-		for (int k = 0; k < n*m; k++)
-		{
-			sub_key[i].push_back(key[counter]);
-			counter++;
-		}
-	return sub_key;
-}
-
-int Counter_Bits(vector <string> &text)
-{
-	int count = 0;
-	for (int i = 0; i < (int) text.size(); i++)
-	{
-		for (int j = 0; j < (int) text[i].size(); j++)
-		{
-			unsigned int temp = text[i][j];
-			while (temp != 0)
-			{
-				temp = temp >> 1;
-				count++;
-			}
-		}
-	}
-	return count;
-}
-
 vector <string> Random_sbox(int m)
 {
 	vector <string> temp_table;
