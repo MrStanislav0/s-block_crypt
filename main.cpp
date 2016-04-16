@@ -25,7 +25,7 @@ string generate_text (int n, int m); //Создано для тестов. Ге�
 vector <vector <string>> sub_str_blok (string text, int n, int m);//Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 vector <vector <string>> use_s_box (vector <vector <string>> hs, map <string,string> s_box)
 
-string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j);//собственно последние два блока, как я понял. XOR, согласно p_box
+string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j);//собственно последние два блока, кк я понял. XOR, согласно p_box
 */
 
 #include "Sfiles.h"// Работа с файлами
@@ -44,36 +44,35 @@ int main()
 	string text; // Исходный текст
 	string new_text; // Зашифрованный текст
 	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
-	map <string, map<string,int>> Ulia; //подсчет C исходя из dif
+	map <string, map<string, int>> Table_analysis; //подсчет C исходя из dif
 	
 	
 	cout << "Введите через пробел количество блоков, размер блока и количество раундов" << endl;
 	cin >> n >> m >> j;
 	
-	vector <vector <int>> key = generate_key(n, m, j); // Генерация ключа
+	vector <string> key = generate_key(n*m, j); // Генерация ключа
 	
 	
 	map <string, string> s_box = generate_sbox(m); // Генерация s-блока (таблицы замены)
 
 	map <int, int> p_box = generate_pbox(n, m); // Генерация p-блока (таблицы перестановки)
 
-	text = generate_text (n,m); // Генерация текста (тестовая функция)
-	vector <vector <string>> hs = sub_str_blok(text,n,m); // Разбиение текста на блоки
+	text = Random_Bits (n*m); // Генерация текста (тестовая функция)
+	vector <string> hs = divide_str(text, n); // Разбиение текста на блоки
 	
-	for (int h = 0; h < hs.size(); h++) //по частям частей
+	
+	for (int i = 0; i < j; i++) // по раундам
 	{
-		for (int i = 0; i < j; i++) // по раундам
-		{
-			hs[h] = use_s_box(hs[h], s_box); // Применение s-блока
-			string p_str = use_p_box(hs[h], p_box); // Применение p-блока
-			string sub_key_in_str = int_to_str(key[i]);
-			new_text = help_xor(p_str, sub_key_in_str);
-			hs[h] = sub_block(new_text, n, m);//записываем полученное значение
-		}
+		hs = use_s_box(hs, s_box); // Применение s-блока
+		string p_str = use_p_box(hs, p_box); // Применение p-блока
+		new_text = help_xor(p_str, key[i]); // XOR
+
+		hs = divide_str(new_text, n); // Разбиение текста для применения след. s-блока
 	}
 
+
 	dif = create_dif_tabl(m);// создаем таблицу такую
-	Ulia = create_tabl_count_diff(dif, s_box, m); // Таблица анализа блока замены
+	Table_analysis = create_tabl_count_diff(dif, s_box, m); // Таблица анализа блока замены
 
 	// Вывод в файл
 
@@ -89,7 +88,7 @@ int main()
 	outpute_file(name, temp, 2);
 	outpute_file(name, text, 2);
 
-	temp = "Полный ключ:";
+	temp = "Ключи от раундов:";
 	outpute_file(name, temp, 2);
 	outpute_file(name, key, 2);
 
@@ -107,7 +106,7 @@ int main()
 
 	temp = "Таблица анализа блока замены:";
 	outpute_file(name, temp, 2);
-	outpute_file(name, Ulia, 2);
+	outpute_file(name, Table_analysis, 2);
 
 	cout << "Результат успешно записан в " << name << endl;
 

@@ -23,25 +23,6 @@ string help_xor (string a, string b)
 	return str;
 }
 
-vector <string> sub_block (string str,int n,int m)
-{
-	vector  <string> blok;
-	char alpha;
-	for (int i = 0; i < (int) str.size();)
-		for (int j = 0; j < n; j++)//отмеряем n штук блоков
-		{
-			string sub;
-			for (int k = 0; k < m; k++)//отмеряем m штук символов
-			{
-				alpha=str[i];
-				sub=sub+alpha;
-				i++;
-			}
-			blok.push_back(sub);
-		}
-	return blok;
-}
-
 string use_p_box (vector <string> hs, map<int,int>p_box)
 {
 	string str;
@@ -64,29 +45,28 @@ string int_to_str (vector <int> sub_key)
 	return str;
 }
 
-vector <vector <string>> sub_str_blok (string str, int n, int m)
+vector <string> divide_str (string str, int n)
 {
-	//в функции не рассматриваю, когда не влезает целиком sblok. То есть n=3,m=3, длина текста 17
-	vector <vector <string>> blok;
-	char alpha;
+	vector <string> block;
 
-	for (int i = 0; i < (int) str.size();)
+	int m = str.size() / n;
+
+	int k = 0;
+
+	for (int i = 0; i < n; i++)//отмеряем n штук блоков
 	{
-		vector <string> oops;
-		for (int j = 0; j < n; j++)//отмеряем n штук блоков
+		string sub;
+		for (int j = 0; j < m; j++)//отмеряем m штук символов
 		{
-			string sub;
-			for (int k = 0; k < m; k++)//отмеряем m штук символов
-			{
-				alpha=str[i];
-				sub=sub+alpha;
-				i++;
-			}
-			oops.push_back(sub);
+			char temp = str[k];
+			sub = sub + temp;
+			k++;
 		}
-		blok.push_back(oops);
+
+		block.push_back(sub);
 	}
-	return blok;
+	
+	return block;
 }
 
 string sbox_str (string str,  map <string,string> sbox)
@@ -106,10 +86,10 @@ vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 	return hs;
 }
 
-string generate_text (int n, int m)
+string Random_Bits (int n)
 {
 	string str;
-	for (int i = 0; i < n*m; i++)
+	for (int i = 0; i < n; i++)
 	{
 		int r = rand() % 2;
 		char temp = r + '0';
@@ -136,16 +116,14 @@ map <int, int> generate_pbox(int n, int m)
 	return p_box;
 }
 
-vector <vector <int>> generate_key(int n, int m, int j)
+vector <string> generate_key(int n, int j)
 {
-	vector <int> temp_key;
-	for (int i = 0; i < n*m*j; i++)
+	vector <string> key;
+	for (int i = 0; i < j; i++)
 	{
-		int r = rand() % 2;
-		temp_key.push_back(r);
+		string str = Random_Bits(n);
+		key.push_back(str);
 	}
-
-	vector <vector <int>> key = sub(temp_key, n, m, j);
 
 	return key;
 }
@@ -180,17 +158,6 @@ int Counter_Bits(vector <string> &text)
 		}
 	}
 	return count;
-}
-
-string Random_Bits(int m)
-{
-	string str;
-	for (int i = 0; i < m; i++)
-	{
-		char temp = rand() % 2 + '0';
-		str = str + temp;
-	}
-	return str;
 }
 
 vector <string> Random_sbox(int m)
@@ -294,12 +261,12 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 
 	for (int i = 0; i < cikl; i++)
 	{
-		string temp1 = Int_to_bitstr(i, m);
+		string temp1 = Int_to_BitStr(i, m);
 
 		for (int j = 0; j < cikl; j++)
 		{
 			
-			string temp2 = Int_to_bitstr(j, m);
+			string temp2 = Int_to_BitStr(j, m);
 
 			Ulia[temp1][temp2] = 0;
 		}
@@ -326,7 +293,7 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 	return Ulia;
 }
 
-string Int_to_bitstr(int n, int bit)
+string Int_to_BitStr(int n, int bit)
 {
 	string str;
 	for (int j = 0; j < bit; j++)
