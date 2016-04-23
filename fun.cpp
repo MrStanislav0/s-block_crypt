@@ -223,7 +223,7 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 {
 	map <string, map<string,int>> Ulia;
 
-	// Заполнение таблицы нулями
+	//заполнение таблицы нулями
 
 	int cikl = (int)pow(2.0, (double)m);
 
@@ -240,7 +240,7 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 		}
 
 	}
-
+	
 	// Заполнение таблицы значениями
 
 	map <string, vector<difference>>::iterator it;
@@ -272,4 +272,20 @@ string Int_to_BitStr(int n, int bit)
 	}
 
 	return str;
+}
+
+string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)//создано, чтобы шифровать текст. J раз:(Делает XOR с ключом, делает sbox, делает pbox)
+{
+	vector <string> hs ;
+	string new_text;
+
+	for (int i = 0; i < j; i++) // по раундам
+	{
+		new_text = help_xor(text, key[i]); // XOR
+		hs = divide_str(text, n); // Разбиение текста на блоки
+		hs = use_s_box(hs, s_box); // Применение s-блока
+		string p_str = use_p_box(hs, p_box); // Применение p-блока
+		text=p_str;
+	}
+	return text;// возвращает строку текста y или y` будет
 }

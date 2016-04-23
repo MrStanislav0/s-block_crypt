@@ -34,4 +34,6 @@ map <string, map<string, int>> create_tabl_count_diff(map <string, vector<differ
 
 string Int_to_BitStr(int n, int bit);
 
+string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text);
+
 #endif 
