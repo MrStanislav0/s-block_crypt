@@ -62,7 +62,7 @@ int main()
 
 
 	dif = create_dif_tabl(m);// создаем таблицу такую
-	Table_analysis = create_tabl_count_diff(dif, s_box, m); // Таблица анализа блока замены
+	Table_analysis = create_tabl_count_diff_version2(dif, s_box, m); // Таблица анализа блока замены
 
 
 	string delta_A = Random_Bits (n*m); // Генерация разности, пока что одной. Размер n*m, тот же что и у текста
@@ -72,7 +72,8 @@ int main()
 	string text_Y = crypto (n, j, key, s_box, p_box, text_X);// Создаем пару текстов X - Y, открытый и зашифрованыый
 	string text_Yy = crypto (n, j, key, s_box, p_box, text_Xx);//Создаем пару текстов X` - Y`, открытый и зашифрованыый
 
-
+	vector <string> uliana;
+	uliana = ulia (n, j, delta_A,  s_box, p_box);
 
 	return 0;
 }

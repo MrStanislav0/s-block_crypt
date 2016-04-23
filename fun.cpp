@@ -241,7 +241,7 @@ map <string, map<string,int>> create_tabl_count_diff (map <string, vector<differ
 
 	}
 	
-	// Заполнение таблицы значениями
+	// Заполнение таблицы значениями 
 
 	map <string, vector<difference>>::iterator it;
 	string str,c;
@@ -288,4 +288,70 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 		text=p_str;
 	}
 	return text;// возвращает строку текста y или y` будет
+}
+
+map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vector<difference>> dif,map <string,string> sbox, int m)
+{
+	map <string, map<string,int>> Ulia;
+
+	map <string, vector<difference>>::iterator it;
+	string str,c;
+	string a1,a2;
+
+	for (it=dif.begin();it!=dif.end();it++)
+	{
+		str=(*it).first;
+		for (int i=0;i<(*it).second.size();i++)
+		{
+			a1=sbox_str ( (*it).second[i].x,sbox);
+			a2=sbox_str ( (*it).second[i].y,sbox);
+			c=help_xor (a1,a2);
+			Ulia [c][str]++;
+		}
+	}
+	return Ulia;
+}
+
+vector <string> ulia (int n, int j, string delta_A, map <string, map<string, int>> Table_analysis, map <int, int> p_box)
+{
+	map <string,vector<string>> helga;
+	map <string, map<string, int>> :: iterator it;
+	map<string, int>:: iterator it2;
+
+	for (it =  Table_analysis.begin(); it!=Table_analysis.end(); it++)
+		for (it2 = (*it).second.begin(); it2!=(*it).second.end(); it2++)
+			helga[(*it).first].push_back((*it2).first);
+
+	vector<string> delta_a_i;
+	map <int,vector<string>> alpha;
+	alpha[0].push_back(delta_A);
+
+	for (int i=1;i<j;i++)
+	{
+		vector <string> Big_omega;
+		for (int k=0;k<alpha[i-1].size();k++)
+		{
+			int size=1;
+			vector <string> omega;
+			delta_a_i= divide_str(alpha[i-1][k], n);
+
+			for (int h=0;h<n;h++)
+				size=size*(helga[delta_a_i[h]].size());
+
+			omega.resize(size);
+
+			for (int h=0;h<n;h++)
+				for(int l=0;l<size;l++)
+				{
+					int sub_size = helga[delta_a_i[h]].size();
+					int oo = l % sub_size;
+					omega[l]=omega[l]+helga[delta_a_i[h][oo]
+				}
+				
+			for (int g=0;g<size;g++)
+				Big_omega.push_back(omega[g]);
+		}
+		alpha[i].push_back(Big_omega);
+	}
+	return alpha[j-1];
 }
