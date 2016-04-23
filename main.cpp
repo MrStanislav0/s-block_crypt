@@ -30,6 +30,8 @@ string help_xor (string a,string b);//создано, чтобы делать XO
 string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>> sub_key, int j);//собственно последние два блока, как я понял. XOR, согласно p_box
 
 string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)
+
+vector <string> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
 */
 
 #include "Sfiles.h"// Работа с файлами
@@ -73,7 +75,6 @@ int main()
 	string text_Yy = crypto (n, j, key, s_box, p_box, text_Xx);//Создаем пару текстов X` - Y`, открытый и зашифрованыый
 
 	vector <string> uliana;
-	uliana = ulia (n, j, delta_A,  s_box, p_box);
-
+	uliana = ulia (n, j, delta_A, Table_analysis, p_box);
 	return 0;
 }

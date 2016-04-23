@@ -312,46 +312,48 @@ map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vect
 	return Ulia;
 }
 
-vector <string> ulia (int n, int j, string delta_A, map <string, map<string, int>> Table_analysis, map <int, int> p_box)
+
+vector <string> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
 {
-	map <string,vector<string>> helga;
+	map <string,vector<string>> helga;// Сюда перетащу значения из Table_analysis, дабы было проще работать
 	map <string, map<string, int>> :: iterator it;
 	map<string, int>:: iterator it2;
 
-	for (it =  Table_analysis.begin(); it!=Table_analysis.end(); it++)
-		for (it2 = (*it).second.begin(); it2!=(*it).second.end(); it2++)
-			helga[(*it).first].push_back((*it2).first);
+	for (it =  Table_analysis.begin(); it!=Table_analysis.end(); it++)//обход всех элемнтов
+		for (it2 = (*it).second.begin(); it2!=(*it).second.end(); it2++)//обход всех элемнтов, опять же
+			helga[(*it).first].push_back((*it2).first);// сохраняем в нужные в helga
 
-	vector<string> delta_a_i;
-	map <int,vector<string>> alpha;
-	alpha[0].push_back(delta_A);
 
-	for (int i=1;i<j;i++)
+
+	vector<string> delta_a_i; //блоки строки, чтобы было сподручнее заменять блоки
+	map <int,vector<string>> alpha;// тут сохраняем строки, которые были получены на k-ом раунде
+	alpha[0].push_back(delta_A);// 0-ой раунд, исходная разность
+
+	for (int i=1;i<j;i++)// по всем циклам, кроме последнего, как в методичке
 	{
-		vector <string> Big_omega;
-		for (int k=0;k<alpha[i-1].size();k++)
+		for (int k=0;k<alpha[i-1].size();k++)// по всем элементам (строкам из предыдущего раунда) будем создавать новые возможные строчки
 		{
-			int size=1;
-			vector <string> omega;
-			delta_a_i= divide_str(alpha[i-1][k], n);
+			delta_a_i= divide_str(alpha[i-1][k], n);//Вытащили строчку, k-ую из предыдущего раунда
+			vector<string> help;//тут будут хранится строки, которые можно получить из текущей разности
+			help.resize(1);//одна пустая строка
+		
+			for (int h1=0;h1<n;h1++)// по всем блокам, которые можем заменить во входной разности
+			{
+				vector<string> help_to_help;
+				for (int h2=0; h2<help.size();h2++)// по всем возможным строкам, которые пока там лежат
+					for (int h3=0;h3<helga[delta_a_i[h1]].size();h3++)// по всем блокам, которые можем заменить (от блока, который заменяем
+					{
+						string str;
+						str=help[h2]+helga[delta_a_i[h1]][h3];//взяли текущую строку, прибавили к ней возможный элемент
+						help_to_help.push_back(str);//засунули ее в новый элемент
+					}
+				help=help_to_help;
+			}
 
-			for (int h=0;h<n;h++)
-				size=size*(helga[delta_a_i[h]].size());
-
-			omega.resize(size);
-
-			for (int h=0;h<n;h++)
-				for(int l=0;l<size;l++)
-				{
-					int sub_size = helga[delta_a_i[h]].size();
-					int oo = l % sub_size;
-					omega[l]=omega[l]+helga[delta_a_i[h][oo]
-				}
-				
-			for (int g=0;g<size;g++)
-				Big_omega.push_back(omega[g]);
+			for (int h=0;h<help.size();h++)
+				alpha[i].push_back(help[h]);
 		}
-		alpha[i].push_back(Big_omega);
 	}
-	return alpha[j-1];
+	return alpha [j-1];
 }
+
