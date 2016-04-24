@@ -267,7 +267,7 @@ string Int_to_BitStr(int n, int bit)
 	for (int j = 0; j < bit; j++)
 	{
 		char temp = n % 2 + '0';
-		str = str + temp;
+		str = temp + str;
 		n = n / 2;
 	}
 
