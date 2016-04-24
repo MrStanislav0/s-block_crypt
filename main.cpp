@@ -50,7 +50,7 @@ int main()
 	string text; // Исходный текст
 	string new_text; // Зашифрованный текст
 	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
-	map <string, map<string, int>> Table_analysis; //подсчет C исходя из dif
+	map <string, map<string, int>> Table_analysis,open; //подсчет C исходя из dif
 	
 	cin >> n >> m >> j;
 	
@@ -67,14 +67,11 @@ int main()
 	Table_analysis = create_tabl_count_diff_version2(dif, s_box, m); // Таблица анализа блока замены
 
 
-	string delta_A = Random_Bits (n*m); // Генерация разности, пока что одной. Размер n*m, тот же что и у текста
+	string delta_A; // Генерация разности, пока что одной. Размер n*m, тот же что и у текста
+	cin>>delta_A;
+	
 
-	string text_X = Random_Bits (n*m); // Генерация пар текстов, это Х
-	string text_Xx = help_xor (delta_A, text_X); // Создаем Х`, Х` = X xor delta_A
-	string text_Y = crypto (n, j, key, s_box, p_box, text_X);// Создаем пару текстов X - Y, открытый и зашифрованыый
-	string text_Yy = crypto (n, j, key, s_box, p_box, text_Xx);//Создаем пару текстов X` - Y`, открытый и зашифрованыый
-
-	vector <string> uliana;
+	map <int,vector<string>> uliana;
 	uliana = ulia (n, j, delta_A, Table_analysis, p_box);
 	return 0;
 }

@@ -313,7 +313,7 @@ map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vect
 }
 
 
-vector <string> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
+map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
 {
 	map <string,vector<string>> helga;// Сюда перетащу значения из Table_analysis, дабы было проще работать
 	map <string, map<string, int>> :: iterator it;
@@ -354,6 +354,6 @@ vector <string> ulia (int n, int j, string delta_A,  map <string, map<string, in
 				alpha[i].push_back(help[h]);
 		}
 	}
-	return alpha [j-1];
+	return alpha;
 }
 
