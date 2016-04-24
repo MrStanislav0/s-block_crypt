@@ -119,12 +119,37 @@ map <int, int> generate_pbox(int n, int m)
 vector <string> generate_key(int n, int j)
 {
 	vector <string> key;
-	for (int i = 0; i < j; i++)
+	int done = 0;
+	while (done != 1)
 	{
-		string str = Random_Bits(n);
-		key.push_back(str);
-	}
+		int ed = 0;
+		int kol = 0;
+		vector <string> temp;
+		for (int i = 0; i < j; i++)
+		{
+			string str = Random_Bits(n);
+			for (int k = 0; k < str.size(); k++)
+			{
+				if (str[i] == '1')
+				{
+					ed++;
+				}
+				kol++;
+			}
 
+			temp.push_back(str);
+		}
+
+		double kol2 = kol;
+		double proc = ed / kol2;
+
+		if ((proc >= 0.4) && (proc <= 0.6))
+		{
+			done = 1;
+			key = temp;
+		}
+	}
+	
 	return key;
 }
 
