@@ -32,6 +32,9 @@ string XOR (vector <vector <string>> hs, map<int,int> p_box, vector< vector<int>
 string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)
 
 vector <string> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
+
+vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text, string delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
+
 */
 
 #include "Sfiles.h"// Работа с файлами
@@ -46,12 +49,14 @@ int main()
 	int n; // Кол-во блоков
 	int m; // Размер блока
 	int j; // Кол-во раундов
+	int count;//Кол-во открытых-закрытых пар текстов
 
 	string text; // Исходный текст
 	string new_text; // Зашифрованный текст
 	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
 	map <string, map<string, int>> Table_analysis,open; //подсчет C исходя из dif
-	
+	vector <pair_text> pair;
+
 	cin >> n >> m >> j;
 	
 	vector <string> key = generate_key(n*m, j); // Генерация ключа
@@ -73,5 +78,9 @@ int main()
 
 	map <int,vector<string>> uliana;
 	uliana = ulia (n, j, delta_A, Table_analysis, p_box);
+
+	cin>>count;
+	pair = create_pair (count, n, m, j, key, s_box, p_box, delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
+
 	return 0;
 }

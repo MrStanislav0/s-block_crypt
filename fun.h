@@ -6,6 +6,13 @@ struct difference //создано, для того, чтобы считать �
 	string x;
 	string y;
 };
+struct pair_text
+{
+	string x;//генерируется
+	string x_;//х_=x XOR А
+	string y;// зашифрованный х
+	string y_;// зашифрованный y_
+};
 
 map <int, int> generate_pbox(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
 map <int, int> Mix_pbox(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
@@ -39,4 +46,5 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vector<difference>> dif,map <string,string> sbox, int m);
 map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box);//возвращет все возможные значения A, перед последним xor, пользователь сам будет анализировать потом (см методичку)
 
+vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
 #endif 

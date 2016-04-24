@@ -312,7 +312,6 @@ map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vect
 	return Ulia;
 }
 
-
 map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
 {
 	map <string,vector<string>> helga;// Сюда перетащу значения из Table_analysis, дабы было проще работать
@@ -355,5 +354,22 @@ map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<s
 		}
 	}
 	return alpha;
+}
+
+vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A)//создает count штук пар открытых - закрытых текстов. Count задает пользователь
+{
+	vector <pair_text> elis;
+
+	for (int i=0;i<count;i++)
+	{
+		pair_text fox;
+		fox.x=Random_Bits (n*m);//генерация х
+		fox.x_=help_xor(fox.x,delta_A);// х_ = x XOR A
+		fox.y=crypto (n, j, key, s_box, p_box, x);//шифрование x
+		fox.y_=crypto (n, j, key, s_box, p_box, x_);//шифрование x_
+		elis.push_back(fox);
+	}
+
+	return elis;
 }
 
