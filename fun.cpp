@@ -339,16 +339,48 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 {
 	vector <pair_text> elis;
 
+	map <string, int> temp;
+
 	for (int i=0;i<count;i++)
 	{
 		pair_text fox;
-		fox.x=Random_Bits (n*m);//генерация х
+
+		fox.x = Random_Bits_no_multi(n*m, temp);
+		temp[fox.x] = 1;
+		
 		fox.x_=help_xor(fox.x,delta_A);// х_ = x XOR A
-		fox.y=crypto (n, j, key, s_box, p_box, x);//шифрование x
-		fox.y_=crypto (n, j, key, s_box, p_box, x_);//шифрование x_
+		fox.y=crypto (n, j, key, s_box, p_box, fox.x);//шифрование x
+		fox.y_=crypto (n, j, key, s_box, p_box, fox.x_);//шифрование x_
 		elis.push_back(fox);
 	}
 
 	return elis;
 }
 
+string Random_Bits_no_multi(int n, map <string, int> temp)
+{
+	string str;
+	int done = 0;
+
+	while (done != 1)
+	{
+
+		for (int i = 0; i < n; i++)
+		{
+			int r = rand() % 2;
+			char temp = r + '0';
+			str = str + temp;
+		}
+
+		if (temp[str] == 0)
+		{
+			done = 1;
+		}
+		else
+		{
+			str = "";
+		}
+		
+	}
+	return str;
+}
