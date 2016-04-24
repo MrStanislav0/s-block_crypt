@@ -134,15 +134,7 @@ vector <string> Random_sbox(int m)
 
 	for (int i = 0; i < (int) pow(2.0, (double)m); i++)
 	{
-		int k = i;
-		string str;
-		for (int j = 0; j < m; j++)
-		{
-			char temp = k % 2 + '0';
-			str = str + temp;
-			k = k / 2;
-		}
-
+		string str = Int_to_BitStr(i, m);
 		temp_table.push_back(str);
 	}
 	random_shuffle(begin(temp_table), end(temp_table));
@@ -155,14 +147,7 @@ map <string, string> generate_sbox(int m)
 
 	for (int i = 0; i < (int) pow(2.0, (double) m); i++)
 	{
-		int k = i;
-		string str;
-		for (int j = 0; j < m; j++)
-		{
-			char temp = k % 2 + '0';
-			str = str + temp;
-			k = k / 2;
-		}
+		string str = Int_to_BitStr(i, m);
 		table[str] = str;
 	}
 
@@ -191,14 +176,8 @@ map <string, vector<difference>> create_dif_tabl (int m)
 	vector <string> save;//Храним тут все возможные строки
 	for (int i = 0; i < (int) pow(2.0, (double) m); i++)//генерируем все возможные строки
 	{
-		int k = i;
-		string str;
-		for (int j = 0; j < m; j++)
-		{
-			char temp = k % 2 + '0';
-			str = str + temp;
-			k = k / 2;
-		}
+		
+		string str = Int_to_BitStr(i, m);
 		save.push_back(str);
 	}
 
