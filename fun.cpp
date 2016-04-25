@@ -282,8 +282,8 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 	{
 		vector <string> hs = divide_str(text, n); // Разбиение текста на блоки
 		hs = use_s_box(hs, s_box); // Применение s-блока
-		string p_str = use_p_box(hs, p_box); // Применение p-блока
-		text = help_xor(p_str, key[i]); // XOR
+		text = use_p_box(hs, p_box); // Применение p-блока
+		text = help_xor(text, key[i]); // XOR
 	}
 	return text; // возвращает строку текста y или y` будет
 }
