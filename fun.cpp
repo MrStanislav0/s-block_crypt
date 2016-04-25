@@ -118,37 +118,35 @@ map <int, int> generate_pbox(int n, int m)
 
 vector <string> generate_key(int n, int j)
 {
-	vector <string> key;
-	int done = 0;
-	while (done != 1)
+	double r = dRand(0.4, 0.6);
+	int ed = round(r * n * j);
+	
+	vector <int> temp_table;
+
+	for (int i = 0; i < n*j; i++)
 	{
-		int ed = 0;
-		int kol = 0;
-		vector <string> temp;
-		for (int i = 0; i < j; i++)
+		if (ed > 0)
 		{
-			string str = Random_Bits(n);
-			for (int k = 0; k < str.size(); k++)
-			{
-				if (str[i] == '1')
-				{
-					ed++;
-				}
-				kol++;
-			}
-
-			temp.push_back(str);
+			temp_table.push_back(1);
+			ed--;
+		}
+		else
+		{
+			temp_table.push_back(0);
 		}
 
-		double kol2 = kol;
-		double proc = ed / kol2;
-
-		if ((proc >= 0.4) && (proc <= 0.6))
-		{
-			done = 1;
-			key = temp;
-		}
 	}
+
+	random_shuffle(begin(temp_table), end(temp_table));
+
+	string str;
+	for (int i = 0; i < n*j; i++)
+	{
+		char s = temp_table[i] + '0';
+		str = str + s;
+	}
+
+	vector <string> key = divide_str(str, j);
 	
 	return key;
 }
@@ -408,4 +406,10 @@ string Random_Bits_no_multi(int n, map <string, int> temp)
 		
 	}
 	return str;
+}
+
+double dRand(double dMin, double dMax)
+{
+	double f = (double)rand() / RAND_MAX;
+	return dMin + f * (dMax - dMin);
 }

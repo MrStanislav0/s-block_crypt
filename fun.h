@@ -49,4 +49,6 @@ map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<s
 vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
 
 string Random_Bits_no_multi(int n, map <string, int> temp);
+
+double dRand(double dMin, double dMax);
 #endif 
