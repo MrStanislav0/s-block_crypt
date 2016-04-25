@@ -278,18 +278,14 @@ string Int_to_BitStr(int n, int bit)
 
 string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)//создано, чтобы шифровать текст. J раз:(Делает XOR с ключом, делает sbox, делает pbox)
 {
-	vector <string> hs ;
-	string new_text;
-
 	for (int i = 0; i < j; i++) // по раундам
 	{
-		new_text = help_xor(text, key[i]); // XOR
-		hs = divide_str(text, n); // Разбиение текста на блоки
+		vector <string> hs = divide_str(text, n); // Разбиение текста на блоки
 		hs = use_s_box(hs, s_box); // Применение s-блока
 		string p_str = use_p_box(hs, p_box); // Применение p-блока
-		text=p_str;
+		text = help_xor(p_str, key[i]); // XOR
 	}
-	return text;// возвращает строку текста y или y` будет
+	return text; // возвращает строку текста y или y` будет
 }
 
 map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vector<difference>> dif,map <string,string> sbox, int m)
