@@ -30,8 +30,6 @@ vector <string> divide_str(string str, int n); //Разбивает текст �
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
 
 string use_p_box (vector <string> hs,map<int,int>p_box);//перестановка строки согласно p_box
-string int_to_str (vector <int> sub_key);//создано для удобства XOR
-string sbox_str (string str,  map <string,string> sbox);//создано для удобства sbox
 
 //XOR, согласно p_box
 

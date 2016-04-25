@@ -34,17 +34,6 @@ string use_p_box (vector <string> hs, map<int,int>p_box)
 	return answer;
 }
 
-string int_to_str (vector <int> sub_key)
-{
-	string str;
-	for (int i=0;i<sub_key.size();i++)
-	{
-		char temp = sub_key[i]+'0';
-		str=str + temp;
-	}
-	return str;
-}
-
 vector <string> divide_str (string str, int n)
 {
 	vector <string> block;
@@ -67,12 +56,6 @@ vector <string> divide_str (string str, int n)
 	}
 	
 	return block;
-}
-
-string sbox_str (string str,  map <string,string> sbox)
-{
-	string answer=sbox[str];
-	return answer;
 }
 
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
