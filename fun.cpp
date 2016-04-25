@@ -193,76 +193,6 @@ map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
 	return sblock;
 }
 
-map <string, vector<difference>> create_dif_tabl (int m)
-{
-	map <string, vector<difference>> table;//будем возвращать это
-	vector <string> save;//Храним тут все возможные строки
-	for (int i = 0; i < (int) pow(2.0, (double) m); i++)//генерируем все возможные строки
-	{
-		
-		string str = Int_to_BitStr(i, m);
-		save.push_back(str);
-	}
-
-	vector<difference> help;//вспомогательная, дабы не париться с кучей скобок и был понятнее код
-	help.resize((int) pow(2.0, (double) m));
-	string str;
-
-	for (int i = 0; i < (int) pow(2.0, (double) m); i++)
-	{
-		for (int k = 0; k < (int) pow(2.0, (double) m); k++)
-		{
-			help[k].y=save[k];
-			str = help_xor(save[i],save[k]);
-			help[k].x=str;
-		}
-		table[save[i]]=help;
-	}
-	return table;
-}
-
-map <string, map<string,int>> create_tabl_count_diff (map <string, vector<difference>> dif,map <string,string> sbox, int m)
-{
-	map <string, map<string,int>> Ulia;
-
-	//заполнение таблицы нулями
-
-	int cikl = (int)pow(2.0, (double)m);
-
-	for (int i = 0; i < cikl; i++)
-	{
-		string temp1 = Int_to_BitStr(i, m);
-
-		for (int j = 0; j < cikl; j++)
-		{
-			
-			string temp2 = Int_to_BitStr(j, m);
-
-			Ulia[temp1][temp2] = 0;
-		}
-
-	}
-	
-	// Заполнение таблицы значениями 
-
-	map <string, vector<difference>>::iterator it;
-	string str,c;
-	string a1,a2;
-
-	for (it=dif.begin();it!=dif.end();it++)
-	{
-		str=(*it).first;
-		for (int i=0;i<(*it).second.size();i++)
-		{
-			a1=sbox_str ( (*it).second[i].x,sbox);
-			a2=sbox_str ( (*it).second[i].y,sbox);
-			c=help_xor (a1,a2);
-			Ulia [c][str]++;
-		}
-	}
-	return Ulia;
-}
-
 string Int_to_BitStr(int n, int bit)
 {
 	string str;
@@ -408,4 +338,38 @@ double dRand(double dMin, double dMax)
 {
 	double f = (double)rand() / RAND_MAX;
 	return dMin + f * (dMax - dMin);
+}
+
+string Use1_sbox(map <string, string> sbox, string s1)
+{
+	return sbox[s1];
+}
+
+
+map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m)
+{
+	map <string, map<string, int>> Tabl;
+
+	int cikl = (int)pow(2.0, (double)m);
+
+	for (int i = 0; i < cikl; i++)
+	{
+		string temp1 = Int_to_BitStr(i, m); // a1
+
+		for (int j = 0; j < cikl; j++)
+		{
+
+			string temp2 = Int_to_BitStr(j, m); // a2
+
+			string final1 = help_xor(temp1, temp2); // a1 xor a2
+			string final2 = help_xor(Use1_sbox(sbox, temp1), Use1_sbox(sbox, temp2)); // S(a1) xor S(a2)
+			Tabl[final1][final2]++;
+
+			if (Tabl[temp1][temp2] == 0)
+				Tabl[temp1][temp2] = 0;
+		}
+
+	}
+
+	return Tabl;
 }

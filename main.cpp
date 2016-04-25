@@ -67,10 +67,7 @@ int main()
 	text = Random_Bits (n*m); // Генерация текста (тестовая функция)
 	new_text = crypto (n, j, key, s_box, p_box, text);//шифрование 
 
-
-	dif = create_dif_tabl(m);// создаем таблицу такую
-	Table_analysis = create_tabl_count_diff_version2(dif, s_box, m); // Таблица анализа блока замены
-
+	Table_analysis = Analyse_Tabl_generate(s_box, m); // Таблица анализа блока замены
 
 	string delta_A; // Генерация разности, пока что одной. Размер n*m, тот же что и у текста
 	cin>>delta_A;

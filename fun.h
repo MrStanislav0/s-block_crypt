@@ -36,8 +36,6 @@ string sbox_str (string str,  map <string,string> sbox);//создано для 
 //XOR, согласно p_box
 
 string help_xor (string a,string b);//создано, чтобы делать XOR двух строк и не заморачиваться, используется в create_dif_tabl, из-за свойства xor (a xor b = c --> a xor c = b)
-map <string, vector<difference>> create_dif_tabl (int m);
-map <string, map<string, int>> create_tabl_count_diff(map <string, vector<difference>> dif, map <string, string> sbox, int m);
 
 string Int_to_BitStr(int n, int bit);
 
@@ -51,4 +49,8 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 string Random_Bits_no_multi(int n, map <string, int> temp);
 
 double dRand(double dMin, double dMax);
+
+string Use1_sbox(map <string, string> sbox, string s1);
+
+map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m);
 #endif 
