@@ -218,28 +218,6 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 	return text; // возвращает строку текста y или y` будет
 }
 
-map <string, map<string,int>> create_tabl_count_diff_version2 (map <string, vector<difference>> dif,map <string,string> sbox, int m)
-{
-	map <string, map<string,int>> Ulia;
-
-	map <string, vector<difference>>::iterator it;
-	string str,c;
-	string a1,a2;
-
-	for (it=dif.begin();it!=dif.end();it++)
-	{
-		str=(*it).first;
-		for (int i=0;i<(*it).second.size();i++)
-		{
-			a1=sbox_str ( (*it).second[i].x,sbox);
-			a2=sbox_str ( (*it).second[i].y,sbox);
-			c=help_xor (a1,a2);
-			Ulia [c][str]++;
-		}
-	}
-	return Ulia;
-}
-
 map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
 {
 	map <string,vector<string>> helga;// Сюда перетащу значения из Table_analysis, дабы было проще работать
