@@ -100,7 +100,7 @@ map <int, int> generate_pbox(int n, int m)
 vector <string> generate_key(int n, int j)
 {
 	double r = dRand(0.4, 0.6);
-	int ed = (double) round(r * n * j);
+	int ed = (int) round(r * n * j);
 	
 	vector <int> temp_table;
 
