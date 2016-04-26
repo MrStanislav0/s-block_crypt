@@ -38,7 +38,7 @@ vector <string> divide_str (string str, int n)
 {
 	vector <string> block;
 
-	int m = str.size() / n;
+	int m = (int) str.size() / n;
 
 	int k = 0;
 
@@ -60,7 +60,7 @@ vector <string> divide_str (string str, int n)
 
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 {
-	for(int i = 0 ;i < (int)hs.size(); i++)
+	for(int i = 0; i < (int)hs.size(); i++)
 	{
 		hs[i]=sbox[hs[i]];
 	}
@@ -100,7 +100,7 @@ map <int, int> generate_pbox(int n, int m)
 vector <string> generate_key(int n, int j)
 {
 	double r = dRand(0.4, 0.6);
-	int ed = round(r * n * j);
+	int ed = (double) round(r * n * j);
 	
 	vector <int> temp_table;
 
@@ -205,7 +205,7 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 
 	map <string, int> temp;
 
-	for (int i=0;i<count;i++)
+	for (int i=0; i < count; i++)
 	{
 		pair_text fox;
 
@@ -259,7 +259,6 @@ string Use1_sbox(map <string, string> sbox, string s1)
 {
 	return sbox[s1];
 }
-
 
 map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m)
 {
