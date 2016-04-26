@@ -199,7 +199,7 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 	return text; // возвращает строку текста y или y` будет
 }
 
-vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A)//создает count штук пар открытых - закрытых текстов. Count задает пользователь
+vector <pair_text> create_pair (int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A) //создает count штук пар открытых - закрытых текстов. Count задает пользователь
 {
 	vector <pair_text> elis;
 
@@ -212,9 +212,12 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 		fox.x = Random_Bits_no_multi(n*m, temp);
 		temp[fox.x] = 1;
 		
-		fox.x_ = help_xor(fox.x,delta_A);// х_ = x XOR A
-		fox.y = crypto (n, j, key, s_box, p_box, fox.x);//шифрование x
-		fox.y_ = crypto (n, j, key, s_box, p_box, fox.x_);//шифрование x_
+		fox.x_ = help_xor(fox.x,delta_A); // х_ = x XOR A
+		fox.y = crypto (n, j, key, s_box, p_box, fox.x); //шифрование x
+		fox.y_ = crypto (n, j, key, s_box, p_box, fox.x_); //шифрование x_
+
+		fox.C = help_xor(fox.y, fox.y_); // C = y xor y_
+
 		elis.push_back(fox);
 	}
 
@@ -287,3 +290,4 @@ map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, 
 
 	return Tabl;
 }
+
