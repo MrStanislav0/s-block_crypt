@@ -60,11 +60,9 @@ vector <string> divide_str (string str, int n)
 
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 {
-	string str;
 	for(int i = 0 ;i < (int)hs.size(); i++)
 	{
-		str=hs[i];
-		hs[i]=sbox[str];
+		hs[i]=sbox[hs[i]];
 	}
 	return hs;
 }
@@ -84,7 +82,7 @@ string Random_Bits (int n)
 map <int, int> Mix_pbox(map <int, int> tabl, int n,int m)
 {
 	for (int i = 0; i < n*m; i++)
-		swap(tabl[i], tabl[rand() % (n*m)]);// генерируем таблицу замены
+		swap(tabl[i], tabl[rand() % (n*m)]); // генерируем таблицу замены
 	return tabl;
 }
 
@@ -201,50 +199,6 @@ string crypto (int n, int j,vector <string> key, map <string, string> s_box, map
 	return text; // возвращает строку текста y или y` будет
 }
 
-map <int,vector<string>> ulia (int n, int j, string delta_A,  map <string, map<string, int>> Table_analysis, map <int, int> p_box)
-{
-	map <string,vector<string>> helga;// Сюда перетащу значения из Table_analysis, дабы было проще работать
-	map <string, map<string, int>> :: iterator it;
-	map<string, int>:: iterator it2;
-
-	for (it =  Table_analysis.begin(); it!=Table_analysis.end(); it++)//обход всех элемнтов
-		for (it2 = (*it).second.begin(); it2!=(*it).second.end(); it2++)//обход всех элемнтов, опять же
-			helga[(*it).first].push_back((*it2).first);// сохраняем в нужные в helga
-
-
-
-	vector<string> delta_a_i; //блоки строки, чтобы было сподручнее заменять блоки
-	map <int,vector<string>> alpha;// тут сохраняем строки, которые были получены на k-ом раунде
-	alpha[0].push_back(delta_A);// 0-ой раунд, исходная разность
-
-	for (int i=1;i<j;i++)// по всем циклам, кроме последнего, как в методичке
-	{
-		for (int k=0;k<alpha[i-1].size();k++)// по всем элементам (строкам из предыдущего раунда) будем создавать новые возможные строчки
-		{
-			delta_a_i= divide_str(alpha[i-1][k], n);//Вытащили строчку, k-ую из предыдущего раунда
-			vector<string> help;//тут будут хранится строки, которые можно получить из текущей разности
-			help.resize(1);//одна пустая строка
-		
-			for (int h1=0;h1<n;h1++)// по всем блокам, которые можем заменить во входной разности
-			{
-				vector<string> help_to_help;
-				for (int h2=0; h2<help.size();h2++)// по всем возможным строкам, которые пока там лежат
-					for (int h3=0;h3<helga[delta_a_i[h1]].size();h3++)// по всем блокам, которые можем заменить (от блока, который заменяем
-					{
-						string str;
-						str=help[h2]+helga[delta_a_i[h1]][h3];//взяли текущую строку, прибавили к ней возможный элемент
-						help_to_help.push_back(str);//засунули ее в новый элемент
-					}
-				help=help_to_help;
-			}
-
-			for (int h=0;h<help.size();h++)
-				alpha[i].push_back(help[h]);
-		}
-	}
-	return alpha;
-}
-
 vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A)//создает count штук пар открытых - закрытых текстов. Count задает пользователь
 {
 	vector <pair_text> elis;
@@ -258,9 +212,9 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 		fox.x = Random_Bits_no_multi(n*m, temp);
 		temp[fox.x] = 1;
 		
-		fox.x_=help_xor(fox.x,delta_A);// х_ = x XOR A
-		fox.y=crypto (n, j, key, s_box, p_box, fox.x);//шифрование x
-		fox.y_=crypto (n, j, key, s_box, p_box, fox.x_);//шифрование x_
+		fox.x_ = help_xor(fox.x,delta_A);// х_ = x XOR A
+		fox.y = crypto (n, j, key, s_box, p_box, fox.x);//шифрование x
+		fox.y_ = crypto (n, j, key, s_box, p_box, fox.x_);//шифрование x_
 		elis.push_back(fox);
 	}
 
