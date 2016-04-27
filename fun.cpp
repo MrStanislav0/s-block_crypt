@@ -291,3 +291,10 @@ map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, 
 	return Tabl;
 }
 
+// Функция сдвига вправо на 1 позицию
+
+vector <int> sdvig(vector <int> &text_sdvg)
+{
+	rotate(text_sdvg.rbegin(), text_sdvg.rbegin() + 1, text_sdvg.rend());
+	return text_sdvg;
+}

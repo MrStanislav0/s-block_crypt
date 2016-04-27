@@ -44,4 +44,6 @@ double dRand(double dMin, double dMax);
 string Use1_sbox(map <string, string> sbox, string s1);
 
 map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m);
+
+vector <int> sdvig(vector <int> &text_sdvg);
 #endif 
