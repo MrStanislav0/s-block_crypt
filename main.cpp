@@ -1,4 +1,3 @@
-#include <Windows.h> // Обязательно для SetConsoleCP() и SetConsoleOutputCP()
 #include <iostream>
 #include <vector>
 #include <map>
@@ -53,7 +52,7 @@ int main()
 
 	string text; // Исходный текст
 	string new_text; // Зашифрованный текст
-	map <string, vector<difference>> dif;//тут будут хранится: (2^m штук значений) 000 = x XOR y (что надо XOR, чтобы заработало) --> смотри алгоритм Липилина, если непонятно
+	
 	map <string, map<string, int>> Table_analysis,open; //подсчет C исходя из dif
 	vector <pair_text> pair;
 
@@ -63,20 +62,15 @@ int main()
 	map <string, string> s_box = generate_sbox(m); // Генерация s-блока (таблицы замены)
 	map <int, int> p_box = generate_pbox(n, m); // Генерация p-блока (таблицы перестановки)
 
-
 	text = Random_Bits (n*m); // Генерация текста (тестовая функция)
 	new_text = crypto (n, j, key, s_box, p_box, text);//шифрование 
 
 	Table_analysis = Analyse_Tabl_generate(s_box, m); // Таблица анализа блока замены
 
 	string delta_A; // Генерация разности, пока что одной. Размер n*m, тот же что и у текста
-	cin>>delta_A;
-	
+	cin >> delta_A;
 
-	map <int,vector<string>> uliana;
-	uliana = ulia (n, j, delta_A, Table_analysis, p_box);
-
-	cin>>count;
+	cin >> count;
 	pair = create_pair (count, n, m, j, key, s_box, p_box, delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
 
 	return 0;

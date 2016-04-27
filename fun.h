@@ -1,11 +1,6 @@
 #ifndef MODULE3_H
 #define MODULE3_H
 
-struct difference //создано, для того, чтобы считать разность: x XOR y = z --> map <string, vector<difference>>
-{
-	string x;
-	string y;
-};
 struct pair_text
 {
 	string x; //генерируется
