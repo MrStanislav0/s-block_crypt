@@ -7,21 +7,21 @@ using namespace std;
 
 #include "Sfiles.h"
 
-int Is_file (string name)
+bool Is_file (string name)
 {
 	ifstream file_text;
 	file_text.open(name);
 	if (file_text)
 	{
 		file_text.close();
-		return 1;
+		return true;
 	}
 	else
 	{
 		file_text.close();
-		return 0;
+		return false;
 	}
-	return 0;
+	return false;
 }
 
 void outpute_sbox(string name, map <string, string> s_box, int mode)

@@ -10,7 +10,7 @@ struct data_file
 	map <int, int> p_box;
 };
 
-int Is_file(string name); // Проверка существования файла
+bool Is_file(string name); // Проверка существования файла
 
 void outpute_file_full(string name, int m, int n, int j, map <string, string> s_box, map <int, int> p_box); // Вывод всех данных в файл
 void outpute_info(string name, int m, int n, int j, int mode); // Вывод m, n, j 
