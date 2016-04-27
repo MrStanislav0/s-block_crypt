@@ -10,8 +10,6 @@ using namespace std;
 
 #include "fun.h"
 
-
-
 string help_xor (string a, string b)
 {
 	string str;
@@ -30,7 +28,7 @@ string use_p_box (vector <string> hs, map<int,int>p_box)
 	for (int h=0; h < (int) hs.size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
 		str=str+hs[h];
 	for (int h = 0; h < (int) str.size(); h++)
-		answer=answer+str[ p_box[h] ];
+		answer=answer+str[p_box[h]];
 	return answer;
 }
 
