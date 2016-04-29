@@ -45,6 +45,18 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	srand(time(0));
 
+	// Пример работы нового генератора псевдослучайных чисел
+
+	polynom lol = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
+	polynom lol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
+
+	Result_random test = Random_Bits(lol, lol2, 20);
+
+	for (int i = 0; i < test.bits.size(); i++)
+	{
+		cout << test.bits[i]; // Сгенерированные биты находятся в векторе bits
+	}
+
 	int n; // Кол-во блоков
 	int m; // Размер блока
 	int j; // Кол-во раундов

@@ -45,5 +45,25 @@ string Use1_sbox(map <string, string> sbox, string s1);
 
 map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m);
 
-vector <int> sdvig(vector <int> &text_sdvg);
+
+struct polynom
+{
+	vector <int> lenta; // случайная последовательность сгенерированная rand()%
+	int N; // Количество битов в последовательности
+	vector <int> numbers; // Вектор с позициями битов, которые надо XOR'ить в result_polynom
+};
+
+struct Result_random
+{
+	polynom liniya_svyazi; // Первый полином
+	polynom liniya_svyazi2; // Второй полином
+	int bit; // Случайный бит
+	vector <int> bits; // Случайные биты
+};
+
+polynom generate_polynom(int x1, int x2, int x3 = 0, int x4 = 0, int x5 = 0); // Генерация полинома
+polynom result_polynom(polynom liniya_svyazi); // Результат работы полинома (xor битов и сдвиг)
+Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n); // Генерирование псевдослучайной последовательности длины n
+Result_random random_bit(polynom liniya_svyazi, polynom liniya_svyazi2); // Генерирование псевдослучайного бита
+vector <int> sdvig(vector <int> &text_sdvg); // Функция сдвига вправо на 1 позицию
 #endif 

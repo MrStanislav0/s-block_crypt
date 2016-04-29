@@ -296,3 +296,145 @@ vector <int> sdvig(vector <int> &text_sdvg)
 	rotate(text_sdvg.rbegin(), text_sdvg.rbegin() + 1, text_sdvg.rend());
 	return text_sdvg;
 }
+
+
+polynom generate_polynom(int x1, int x2, int x3, int x4, int x5)
+{
+	polynom liniya_svyazi;
+
+	liniya_svyazi.N = x1;
+
+	// Вычитание из всех степений степень при x1. В вектор numbers заносятся позиции битов, которые надо XOR'ить
+
+	if (x3 == 0)
+	{
+		x2 = x2 - x1;
+		x3 = x3 - x1;
+		x1 = 0;
+
+		if (x2 < 0)
+			x2 = -x2;
+		if (x3 < 0)
+			x3 = -x3;
+
+		x2 = x2 - 1;
+		x3 = x3 - 1;
+
+		liniya_svyazi.numbers.push_back(x2);
+		liniya_svyazi.numbers.push_back(x3);
+	}
+	else if (x4 == 0)
+	{
+		x2 = x2 - x1;
+		x3 = x3 - x1;
+		x4 = x4 - x1;
+		x1 = 0;
+
+		if (x2 < 0)
+			x2 = -x2;
+		if (x3 < 0)
+			x3 = -x3;
+		if (x4 < 0)
+			x4 = -x4;
+
+		x2 = x2 - 1;
+		x3 = x3 - 1;
+		x4 = x4 - 1;
+
+		liniya_svyazi.numbers.push_back(x2);
+		liniya_svyazi.numbers.push_back(x3);
+		liniya_svyazi.numbers.push_back(x4);
+	}
+	else if (x5 == 0)
+	{
+		x2 = x2 - x1;
+		x3 = x3 - x1;
+		x4 = x4 - x1;
+		x5 = x5 - x1;
+		x1 = 0;
+
+		if (x2 < 0)
+			x2 = -x2;
+		if (x3 < 0)
+			x3 = -x3;
+		if (x4 < 0)
+			x4 = -x4;
+		if (x5 < 0)
+			x5 = -x5;
+
+		x2 = x2 - 1;
+		x3 = x3 - 1;
+		x4 = x4 - 1;
+		x5 = x5 - 1;
+
+		liniya_svyazi.numbers.push_back(x2);
+		liniya_svyazi.numbers.push_back(x3);
+		liniya_svyazi.numbers.push_back(x4);
+		liniya_svyazi.numbers.push_back(x5);
+	}
+
+	// Заполнение случайной последовательности
+
+	for (int i = 0; i < liniya_svyazi.N; i++)
+	{
+		int r = rand() % 2;
+		liniya_svyazi.lenta.push_back(r);
+	}
+
+	return liniya_svyazi;
+}
+
+polynom result_polynom(polynom liniya_svyazi)
+{
+
+	int result = liniya_svyazi.lenta[liniya_svyazi.numbers[0]];
+
+	// Делаем XOR битов согласно полиному
+	for (int i = 0; i < liniya_svyazi.numbers.size() - 1; i++)
+	{
+		result = result ^ liniya_svyazi.lenta[liniya_svyazi.numbers[i + 1]];
+	}
+
+	liniya_svyazi.lenta = sdvig(liniya_svyazi.lenta); // Сдвигаем последовательность вправо
+	liniya_svyazi.lenta[0] = result; // Записываем на 1 место результат
+
+	return liniya_svyazi;
+}
+
+Result_random random_bit(polynom liniya_svyazi, polynom liniya_svyazi2)
+{
+	liniya_svyazi = result_polynom(liniya_svyazi); // Результат от первого полинома
+	liniya_svyazi2 = result_polynom(liniya_svyazi2); // Результат от второго полинома
+	int bit = liniya_svyazi.lenta[0] ^ liniya_svyazi2.lenta[0]; // XOR битов - получается случайный бит
+
+	// Возвращаем измененнные полиномы и случайный бит
+
+	Result_random temp;
+	temp.liniya_svyazi = liniya_svyazi;
+	temp.liniya_svyazi2 = liniya_svyazi2;
+	temp.bit = bit;
+
+	return temp;
+}
+
+Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n)
+{
+	Result_random final_result;
+
+	for (int i = 0; i < n; i++)
+	{
+		Result_random temp;
+		temp = random_bit(liniya_svyazi, liniya_svyazi2); // Получение случайного бита 
+		liniya_svyazi = temp.liniya_svyazi;
+		liniya_svyazi2 = temp.liniya_svyazi2;
+
+		final_result.bits.push_back(temp.bit); // Записываем случайный бит в вектор
+	}
+
+	// Возвращаем измененнные полиномы и случайные биты
+
+	final_result.liniya_svyazi = liniya_svyazi;
+	final_result.liniya_svyazi2 = liniya_svyazi2;
+
+	return final_result;
+}
