@@ -67,22 +67,10 @@ vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 	return hs;
 }
 
-string Random_Bits (int n)
-{
-	string str;
-	for (int i = 0; i < n; i++)
-	{
-		int r = rand() % 2;
-		char temp = r + '0';
-		str=str + temp;
-	}
-	return str;
-}
-
 map <int, int> Mix_pbox(map <int, int> tabl, int n,int m)
 {
 	for (int i = 0; i < n*m; i++)
-		swap(tabl[i], tabl[rand() % (n*m)]); // генерируем таблицу замены
+		swap(tabl[i], tabl[iRand() % (n*m)]); // генерируем таблицу замены
 	return tabl;
 }
 
@@ -429,4 +417,20 @@ string IntVec_to_Str(vector <int> vec)
 		str = str + temp;
 	}
 	return str;
+}
+
+int iRand()
+{
+	Result_random temp = Random_Bits(pol1, pol2, 15); 
+	pol1 = temp.liniya_svyazi; // изменяем полиномы
+	pol2 = temp.liniya_svyazi2;
+
+	int final_rand = 0;
+	int c = temp.bits.size() - 1;
+	for (int i = 0; i < temp.bits.size(); i++)
+	{
+		final_rand = final_rand + temp.bits[i] * pow(2.0, c);
+		c--;
+	}
+	return final_rand;
 }

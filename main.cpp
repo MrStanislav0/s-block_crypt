@@ -52,15 +52,6 @@ int main()
 	pol1 = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
 	pol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
 
-	Result_random test = Random_Bits(pol1, pol2, 20);
-
-	for (int i = 0; i < test.bits.size(); i++)
-	{
-		cout << test.bits[i]; // Сгенерированные биты находятся в векторе bits
-	}
-
-	cout << endl;
-
 	int n; // Кол-во блоков
 	int m; // Размер блока
 	int j; // Кол-во раундов
@@ -78,7 +69,11 @@ int main()
 	map <string, string> s_box = generate_sbox(m); // Генерация s-блока (таблицы замены)
 	map <int, int> p_box = generate_pbox(n, m); // Генерация p-блока (таблицы перестановки)
 
-	text = Random_Bits (n*m); // Генерация текста (тестовая функция)
+	Result_random test = Random_Bits(pol1, pol2, n*m);
+	pol1 = test.liniya_svyazi; // изменяем полиномы
+	pol2 = test.liniya_svyazi2;
+
+	text = IntVec_to_Str(test.bits); // Генерация текста (тестовая функция)
 	new_text = crypto (n, j, key, s_box, p_box, text);//шифрование 
 
 	Table_analysis = Analyse_Tabl_generate(s_box, m); // Таблица анализа блока замены

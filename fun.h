@@ -19,9 +19,6 @@ map <string, string> generate_sbox(int m); //Создает таблицу ра�
 vector <string> Random_sbox(int m); //Генерация s-блока, причем, мы их перемешиваем, после запишем в map и полчим sbox (смотри generate_tabl_mix )
 map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // Генерация таблицы подстановки s-блок
 
-
-string Random_Bits(int n); // Генерирование случайной последовательности 0 и 1 n-штук
-
 vector <string> divide_str(string str, int n); //Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
 
@@ -66,6 +63,7 @@ polynom result_polynom(polynom liniya_svyazi); // Результат работ�
 Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n); // Генерирование псевдослучайной последовательности длины n
 Result_random random_bit(polynom liniya_svyazi, polynom liniya_svyazi2); // Генерирование псевдослучайного бита
 vector <int> sdvig(vector <int> &text_sdvg); // Функция сдвига вправо на 1 позицию
+int iRand();
 
 string IntVec_to_Str(vector <int> vec);
-#endif 
+#endif
