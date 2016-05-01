@@ -39,8 +39,8 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 #include "Sfiles.h"// Работа с файлами
 #include "fun.h" // Все остальные функции
 
-polynom lol;
-polynom lol2;
+polynom pol1;
+polynom pol2;
 
 int main()
 {
@@ -49,10 +49,10 @@ int main()
 
 	// Пример работы нового генератора псевдослучайных чисел
 
-	lol = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
-	lol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
+	pol1 = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
+	pol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
 
-	Result_random test = Random_Bits(lol, lol2, 20);
+	Result_random test = Random_Bits(pol1, pol2, 20);
 
 	for (int i = 0; i < test.bits.size(); i++)
 	{

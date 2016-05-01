@@ -10,7 +10,7 @@ using namespace std;
 
 #include "fun.h"
 
-extern polynom lol, lol2;
+extern polynom pol1, pol2;
 
 string help_xor (string a, string b)
 {
@@ -99,11 +99,11 @@ map <int, int> generate_pbox(int n, int m)
 
 vector <string> generate_key(int n, int j)
 {
-	Result_random test = Random_Bits(lol, lol2, n*j); // Генерирование ключа длины m*n*j
-	lol = test.liniya_svyazi; // изменяем полиномы
-	lol2 = test.liniya_svyazi2;
+	Result_random gen_key = Random_Bits(pol1, pol2, n*j); // Генерирование ключа длины m*n*j
+	pol1 = gen_key.liniya_svyazi; // изменяем полиномы
+	pol2 = gen_key.liniya_svyazi2;
 
-	string str = IntVec_to_Str(test.bits); // преобразем в строку
+	string str = IntVec_to_Str(gen_key.bits); // преобразем в строку
 	vector <string> key = divide_str(str, j); // разделяем на раунды
 	
 	return key;
