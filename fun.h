@@ -11,7 +11,6 @@ struct pair_text
 };
 
 map <int, int> generate_pbox(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
-map <int, int> Mix_pbox(map <int, int> tabl, int n,int m);//Перемешивает таблицу замены. Получим p-блок
 
 vector <string> generate_key(int n, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
 

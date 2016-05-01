@@ -67,20 +67,14 @@ vector <string> use_s_box (vector <string> hs, map <string,string> sbox)
 	return hs;
 }
 
-map <int, int> Mix_pbox(map <int, int> tabl, int n,int m)
-{
-	for (int i = 0; i < n*m; i++)
-		swap(tabl[i], tabl[iRand() % (n*m)]); // генерируем таблицу замены
-	return tabl;
-}
-
 map <int, int> generate_pbox(int n, int m)
 {
 	map <int, int> p_box;
 	for (int i = 0; i < n*m; i++)
 		p_box[i] = i;
 
-	p_box = Mix_pbox(p_box, m, n);
+	for (int i = 0; i < n*m; i++)
+		swap(p_box[i], p_box[iRand() % (n*m)]);
 
 	return p_box;
 }
