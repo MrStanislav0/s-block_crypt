@@ -91,48 +91,30 @@ vector <string> generate_key(int n, int j)
 	return key;
 }
 
-vector <string> Random_sbox(int m)
-{
-	vector <string> temp_table;
-
-	for (int i = 0; i < (int) pow(2.0, (double)m); i++)
-	{
-		string str = Int_to_BitStr(i, m);
-		temp_table.push_back(str);
-	}
-	random_shuffle(begin(temp_table), end(temp_table));
-	return temp_table;
-}
-
 map <string, string> generate_sbox(int m)
 {
 	map <string, string> table;
+	int max_zn = (int)pow(2.0, (double)m);
 
-	for (int i = 0; i < (int) pow(2.0, (double) m); i++)
+	for (int i = 0; i < max_zn; i++)
 	{
 		string str = Int_to_BitStr(i, m);
 		table[str] = str;
 	}
 
+	for (int i = 0; i < max_zn; i++)
+	{
+		string str = Int_to_BitStr(i, m);
+		string str_rand = Int_to_BitStr(iRand() % max_zn, m);
 
+		string str_temp1 = table[str];
+		string str_temp2 = table[str_rand];
 
-	table = generate_tabl_mix(table, m);
+		table[str] = str_temp2;
+		table[str_rand] = str_temp1;
+	}
 
 	return table;
-}
-
-map <string, string> generate_tabl_mix (map <string, string> sblock, int m)
-{
-	vector <string> temp = Random_sbox(m);
-	int i = 0;
-	map <string,string> :: iterator it;
-
-	for (it = sblock.begin(); it!=sblock.end(); it++)
-	{
-		(*it).second = temp[i];
-		i++;
-	}
-	return sblock;
 }
 
 string Int_to_BitStr(int n, int bit)
@@ -148,7 +130,7 @@ string Int_to_BitStr(int n, int bit)
 	return str;
 }
 
-string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)//создано, чтобы шифровать текст. J раз:(Делает XOR с ключом, делает sbox, делает pbox)
+string crypto(int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text)//создано, чтобы шифровать текст. J раз:(Делает XOR с ключом, делает sbox, делает pbox)
 {
 	for (int i = 0; i < j; i++) // по раундам
 	{

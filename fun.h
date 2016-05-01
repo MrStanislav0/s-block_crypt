@@ -15,8 +15,6 @@ map <int, int> generate_pbox(int n, int m);//Cоздает таблицу зам
 vector <string> generate_key(int n, int j);//Cоздает ключ размера n*m*j. Ключ еще не разбит на K(i)
 
 map <string, string> generate_sbox(int m); //Создает таблицу размера (2^m - 2). В ней как по таблице истинность упорядочены 000, 001... (смотри дальше Random_sbox)
-vector <string> Random_sbox(int m); //Генерация s-блока, причем, мы их перемешиваем, после запишем в map и полчим sbox (смотри generate_tabl_mix )
-map <string, string> generate_tabl_mix(map <string, string> sblock, int m); // Генерация таблицы подстановки s-блок
 
 vector <string> divide_str(string str, int n); //Разбивает текст на кучу блоков для дальнейшей замены (покачто хрен знает сколько блоков, размера m, ибо генерируем текст n*m - переполнения не будет)
 vector <string> use_s_box (vector <string> hs, map <string,string> sbox);//Заменяем sblok
