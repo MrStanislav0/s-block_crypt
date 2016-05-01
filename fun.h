@@ -33,7 +33,6 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 
 string Random_Bits_no_multi(int n, map <string, int> temp);
 
-double dRand(double dMin, double dMax);
 
 string Use1_sbox(map <string, string> sbox, string s1);
 

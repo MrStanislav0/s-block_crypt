@@ -195,12 +195,6 @@ string Random_Bits_no_multi(int n, map <string, int> temp)
 	return str;
 }
 
-double dRand(double dMin, double dMax)
-{
-	double f = (double)rand() / RAND_MAX;
-	return dMin + f * (dMax - dMin);
-}
-
 string Use1_sbox(map <string, string> sbox, string s1)
 {
 	return sbox[s1];
