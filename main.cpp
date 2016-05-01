@@ -39,6 +39,8 @@ vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> 
 #include "Sfiles.h"// Работа с файлами
 #include "fun.h" // Все остальные функции
 
+polynom lol;
+polynom lol2;
 
 int main()
 {
@@ -47,8 +49,8 @@ int main()
 
 	// Пример работы нового генератора псевдослучайных чисел
 
-	polynom lol = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
-	polynom lol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
+	lol = generate_polynom(49, 22, 0); // x^49 + x^22 + 1
+	lol2 = generate_polynom(142, 21, 0); // x^142 + x^21 + 1
 
 	Result_random test = Random_Bits(lol, lol2, 20);
 
@@ -57,15 +59,17 @@ int main()
 		cout << test.bits[i]; // Сгенерированные биты находятся в векторе bits
 	}
 
+	cout << endl;
+
 	int n; // Кол-во блоков
 	int m; // Размер блока
 	int j; // Кол-во раундов
-	int count;//Кол-во открытых-закрытых пар текстов
+	int count; // Кол-во открытых-закрытых пар текстов
 
 	string text; // Исходный текст
 	string new_text; // Зашифрованный текст
 	
-	map <string, map<string, int>> Table_analysis,open; //подсчет C исходя из dif
+	map <string, map<string, int>> Table_analysis; // Таблица анализа блока замены
 	vector <pair_text> pair;
 
 	cin >> n >> m >> j;
@@ -83,7 +87,7 @@ int main()
 	cin >> delta_A;
 
 	cin >> count;
-	pair = create_pair (count, n, m, j, key, s_box, p_box, delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
-
+	pair = create_pair (count, n, m, j, key, s_box, p_box, delta_A); //создает count штук пар открытых - закрытых текстов. Count задает пользователь
+	
 	return 0;
 }

@@ -66,4 +66,6 @@ polynom result_polynom(polynom liniya_svyazi); // Результат работ�
 Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n); // Генерирование псевдослучайной последовательности длины n
 Result_random random_bit(polynom liniya_svyazi, polynom liniya_svyazi2); // Генерирование псевдослучайного бита
 vector <int> sdvig(vector <int> &text_sdvg); // Функция сдвига вправо на 1 позицию
+
+string IntVec_to_Str(vector <int> vec);
 #endif 

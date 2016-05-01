@@ -10,6 +10,8 @@ using namespace std;
 
 #include "fun.h"
 
+extern polynom lol, lol2;
+
 string help_xor (string a, string b)
 {
 	string str;
@@ -97,35 +99,12 @@ map <int, int> generate_pbox(int n, int m)
 
 vector <string> generate_key(int n, int j)
 {
-	double r = dRand(0.4, 0.6);
-	int ed = (int) round(r * n * j);
-	
-	vector <int> temp_table;
+	Result_random test = Random_Bits(lol, lol2, n*j); // Генерирование ключа длины m*n*j
+	lol = test.liniya_svyazi; // изменяем полиномы
+	lol2 = test.liniya_svyazi2;
 
-	for (int i = 0; i < n*j; i++)
-	{
-		if (ed > 0)
-		{
-			temp_table.push_back(1);
-			ed--;
-		}
-		else
-		{
-			temp_table.push_back(0);
-		}
-
-	}
-
-	random_shuffle(begin(temp_table), end(temp_table));
-
-	string str;
-	for (int i = 0; i < n*j; i++)
-	{
-		char s = temp_table[i] + '0';
-		str = str + s;
-	}
-
-	vector <string> key = divide_str(str, j);
+	string str = IntVec_to_Str(test.bits); // преобразем в строку
+	vector <string> key = divide_str(str, j); // разделяем на раунды
 	
 	return key;
 }
@@ -152,6 +131,8 @@ map <string, string> generate_sbox(int m)
 		string str = Int_to_BitStr(i, m);
 		table[str] = str;
 	}
+
+
 
 	table = generate_tabl_mix(table, m);
 
@@ -437,4 +418,15 @@ Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n)
 	final_result.liniya_svyazi2 = liniya_svyazi2;
 
 	return final_result;
+}
+
+string IntVec_to_Str(vector <int> vec)
+{
+	string str;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		char temp = vec[i] + '0';
+		str = str + temp;
+	}
+	return str;
 }
