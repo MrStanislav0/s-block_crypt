@@ -329,7 +329,7 @@ polynom result_polynom(polynom liniya_svyazi)
 	int result = liniya_svyazi.lenta[liniya_svyazi.numbers[0]];
 
 	// Делаем XOR битов согласно полиному
-	for (int i = 0; i < liniya_svyazi.numbers.size() - 1; i++)
+	for (int i = 0; i < (int)liniya_svyazi.numbers.size() - 1; i++)
 	{
 		result = result ^ liniya_svyazi.lenta[liniya_svyazi.numbers[i + 1]];
 	}
@@ -381,7 +381,7 @@ Result_random Random_Bits(polynom liniya_svyazi, polynom liniya_svyazi2, int n)
 string IntVec_to_Str(vector <int> vec)
 {
 	string str;
-	for (int i = 0; i < vec.size(); i++)
+	for (int i = 0; i < (int)vec.size(); i++)
 	{
 		char temp = vec[i] + '0';
 		str = str + temp;
@@ -396,10 +396,10 @@ int iRand()
 	pol2 = temp.liniya_svyazi2;
 
 	int final_rand = 0;
-	int c = temp.bits.size() - 1;
-	for (int i = 0; i < temp.bits.size(); i++)
+	int c = (int)temp.bits.size() - 1;
+	for (int i = 0; i < (int)temp.bits.size(); i++)
 	{
-		final_rand = final_rand + temp.bits[i] * pow(2.0, c);
+		final_rand = final_rand + temp.bits[i] * (int)pow(2.0, (double)c);
 		c--;
 	}
 	return final_rand;
@@ -410,7 +410,7 @@ long long int Int_login(string str)
 
 	map <char, int> set;
 
-	int j = 0;
+	int j = 1;
 
 	for (int i = 33; i < 127; i++)
 	{
@@ -423,7 +423,7 @@ long long int Int_login(string str)
 
 	for (int i = 0; i < str.size(); i++)
 	{
-		final_int = final_int + (set[str[i]] * pow(10.0, i+1));
+		final_int = final_int + (set[str[i]] * (int)pow(10.0, (double)i+1));
 	}
 
 	return final_int;
