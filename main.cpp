@@ -45,7 +45,12 @@ polynom pol2;
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	srand(time(0));
+	string name;
+	cin >> name;
+	long long int g = Int_login(name);
+	cout << g;
+
+	srand(g);
 
 	// Пример работы нового генератора псевдослучайных чисел
 

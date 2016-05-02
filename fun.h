@@ -62,4 +62,6 @@ vector <int> sdvig(vector <int> &text_sdvg); // Функция сдвига вп
 int iRand();
 
 string IntVec_to_Str(vector <int> vec);
+
+long long int Int_login(string str);
 #endif

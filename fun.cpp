@@ -404,3 +404,27 @@ int iRand()
 	}
 	return final_rand;
 }
+
+long long int Int_login(string str)
+{
+
+	map <char, int> set;
+
+	int j = 0;
+
+	for (int i = 33; i < 127; i++)
+	{
+		char temp = (char)i;
+		set[temp] = j;
+		j++;
+	}
+
+	long long int final_int = 0;
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		final_int = final_int + (set[str[i]] * pow(10.0, i+1));
+	}
+
+	return final_int;
+}
