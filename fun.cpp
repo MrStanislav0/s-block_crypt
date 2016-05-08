@@ -23,15 +23,21 @@ string help_xor (string a, string b)
 	return str;
 }
 
-string use_p_box (vector <string> hs, map<int,int>p_box)
+string use_p_box (vector <string> hs, map<int,int> p_box)
 {
 	string str;
-	string answer;
-	for (int h=0; h < (int) hs.size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
+	string str_final;
+	for (int h = 0; h < (int) hs.size(); h++) //Склеиваем строку (n блоков склеиваем вместе)
 		str=str+hs[h];
-	for (int h = 0; h < (int) str.size(); h++)
-		answer=answer+str[p_box[h]];
-	return answer;
+
+	str_final = str;
+
+	for (int h = 0; h < (int)str.size(); h++)
+	{
+		str_final[p_box[h]] = str[h];
+	}
+		
+	return str_final;
 }
 
 vector <string> divide_str (string str, int n)
