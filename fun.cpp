@@ -26,6 +26,7 @@ string help_xor (string a, string b)
 
 string use_p_box (vector <string> hs, map<int,int> p_box)
 {
+<<<<<<< HEAD
     string str;
     string str_final;
     for (int h = 0; h < (int) hs.size(); h++) //Склеиваем строку (n блоков склеиваем вместе)
@@ -39,6 +40,21 @@ string use_p_box (vector <string> hs, map<int,int> p_box)
     }
 
     return str_final;
+=======
+	string str;
+	string str_final;
+	for (int h = 0; h < (int) hs.size(); h++) //Склеиваем строку (n блоков склеиваем вместе)
+		str=str+hs[h];
+
+	str_final = str;
+
+	for (int h = 0; h < (int)str.size(); h++)
+	{
+		str_final[p_box[h]] = str[h];
+	}
+		
+	return str_final;
+>>>>>>> origin/master
 }
 
 vector <string> divide_str (string str, int n)
@@ -438,6 +454,7 @@ long long int Int_login(string str)
 
 	return final_int;
 }
+<<<<<<< HEAD
 
 // Проверки
 
@@ -478,3 +495,5 @@ bool check_login(string str)
     }
     return true;
 }
+=======
+>>>>>>> origin/master
