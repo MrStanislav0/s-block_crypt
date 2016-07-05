@@ -17,21 +17,28 @@ string help_xor (string a, string b)
 	string str;
 	for (int i = 0; i < (int) a.size(); i++)
 	{
-		char temp = (b[i] - '0') ^ (a[i] - '0') + '0';
+        int temp2 = ((b[i] - '0') ^ (a[i] - '0')) + '0';
+        char temp = temp2;
 		str = str + temp; //добавляем букву
 	}
 	return str;
 }
 
-string use_p_box (vector <string> hs, map<int,int>p_box)
+string use_p_box (vector <string> hs, map<int,int> p_box)
 {
-	string str;
-	string answer;
-	for (int h=0; h < (int) hs.size(); h++)//Склеиваем строку (n блоков склеиваем вместе)
-		str=str+hs[h];
-	for (int h = 0; h < (int) str.size(); h++)
-		answer=answer+str[p_box[h]];
-	return answer;
+    string str;
+    string str_final;
+    for (int h = 0; h < (int) hs.size(); h++) //Склеиваем строку (n блоков склеиваем вместе)
+        str=str+hs[h];
+
+    str_final = str;
+
+    for (int h = 0; h < (int)str.size(); h++)
+    {
+        str_final[p_box[h]] = str[h];
+    }
+
+    return str_final;
 }
 
 vector <string> divide_str (string str, int n)
@@ -136,8 +143,11 @@ string crypto(int n, int j,vector <string> key, map <string, string> s_box, map 
 	{
 		vector <string> hs = divide_str(text, n); // Разбиение текста на блоки
 		hs = use_s_box(hs, s_box); // Применение s-блока
-		text = use_p_box(hs, p_box); // Применение p-блока
-		text = help_xor(text, key[i]); // XOR
+
+        if (i != j - 1)
+            text = use_p_box(hs, p_box); // Применение p-блока
+
+        text = help_xor(text, key[0]); // XOR
 	}
 	return text; // возвращает строку текста y или y` будет
 }
@@ -200,9 +210,9 @@ string Use1_sbox(map <string, string> sbox, string s1)
 	return sbox[s1];
 }
 
-map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m)
+map <string, map<string, int> > Analyse_Tabl_generate(map <string, string> sbox, int m)
 {
-	map <string, map<string, int>> Tabl;
+    map <string, map<string, int> > Tabl;
 
 	int cikl = (int)pow(2.0, (double)m);
 
@@ -421,10 +431,50 @@ long long int Int_login(string str)
 
 	long long int final_int = 0;
 
-	for (int i = 0; i < str.size(); i++)
+    for (int i = 0; i < (int)str.size(); i++)
 	{
 		final_int = final_int + (set[str[i]] * (int)pow(10.0, (double)i+1));
 	}
 
 	return final_int;
+}
+
+// Проверки
+
+bool check_delta(string str, int m, int n)
+{
+    if ((int)str.size() != m*n)
+        return false;
+
+    for (int i = 0; i < (int)str.size(); i++)
+    {
+        if ((str[i] != '0') && (str[i] != '1'))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool check_login(string str)
+{
+    if ((int)str.size() > 8)
+        return false;
+
+    map <char, int> set;
+
+    for (int i = 33; i < 127; i++)
+    {
+        char temp = (char)i;
+        set[temp] = 1;
+    }
+
+    for (int i = 0; i < (int)str.size(); i++)
+    {
+        if (set[str[i]] == 0)
+        {
+            return false;
+        }
+    }
+    return true;
 }

@@ -3,11 +3,11 @@
 
 struct pair_text
 {
-	string x; //генерируется
-	string x_; //х_=x XOR А
-	string y; // зашифрованный х
-	string y_; // зашифрованный y_
-	string C; // y xor y_
+    string x; //генерируется
+    string x_; //х_=x XOR А
+    string y; // зашифрованный х
+    string y_; // зашифрованный y_
+    string C; // y xor y_
 };
 
 map <int, int> generate_pbox(int n, int m);//Cоздает таблицу замены размер n*m - 2. Используем во время xor с ключом. Таблица еще не перемешана, мешаем в swap
@@ -29,14 +29,14 @@ string Int_to_BitStr(int n, int bit);
 
 string crypto (int n, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box,string text);
 
-vector <pair_text> create_pair ( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
+vector <pair_text> create_pair( int count, int n, int m, int j,vector <string> key, map <string, string> s_box, map <int, int> p_box, string delta_A);//создает count штук пар открытых - закрытых текстов. Count задает пользователь
 
 string Random_Bits_no_multi(int n, map <string, int> temp);
 
 
 string Use1_sbox(map <string, string> sbox, string s1);
 
-map <string, map<string, int>> Analyse_Tabl_generate(map <string, string> sbox, int m);
+map <string, map<string, int> > Analyse_Tabl_generate(map <string, string> sbox, int m);
 
 
 struct polynom
@@ -64,4 +64,7 @@ int iRand();
 string IntVec_to_Str(vector <int> vec);
 
 long long int Int_login(string str);
+
+bool check_delta(string str, int m, int n);
+bool check_login(string str);
 #endif
